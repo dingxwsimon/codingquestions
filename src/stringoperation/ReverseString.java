@@ -1,5 +1,5 @@
 /**
- * @(#) ReverseString.java Mar 8, 2010 11:54:41 AM
+8 * @(#) ReverseString.java Mar 8, 2010 11:54:41 AM
  *      Copyright (C) 2009 GeeYee Inc. 60606, Chicago, IL, USA
  *      All right reserved
  */
