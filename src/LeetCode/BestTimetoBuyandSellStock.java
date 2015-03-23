@@ -98,10 +98,11 @@ public class BestTimetoBuyandSellStock {
 	return max;
     }
 
-    //DP: t(i,j) is the max profit for up to i transactions by time j (0<=i<=K, 0<=j<=T).
-    //tmpMax means the maximum profit of just doing at most i-1 transactions, 
-    //using at most first j-1 prices, 
-    //and buying the stock at price[j] - this is used for the next loop.
+    // DP: t(i,j) is the max profit for up to i transactions by time j (0<=i<=K,
+    // 0<=j<=T).
+    // tmpMax means the maximum profit of just doing at most i-1 transactions,
+    // using at most first j-1 prices,
+    // and buying the stock at price[j] - this is used for the next loop.
     public int maxProfit4(int k, int[] prices) {
 	int len = prices.length;
 	if (k >= len / 2)
