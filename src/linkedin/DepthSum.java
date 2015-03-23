@@ -2,65 +2,60 @@ package linkedin;
 
 import java.util.List;
 
-public class DepthSum
-{
+public class DepthSum {
 
-  /*
-   * Given a nested list of integers, returns the sum of all integers in the
-   * list weighted by their depth
-   * For example, given the list {{1,1},2,{1,1}} the function should return 10
-   * (four 1's at depth 2, one 2 at depth 1)
-   * Given the list {1,{4,{6}}} the function should return 27 (one 1 at depth 1,
-   * one 4 at depth 2, and one 6 at depth 3)
-   */
-
-  public interface NestedInteger
-  {
-    /**
-     * @return true if this NestedInteger holds a single integer, rather than a
-     *         nested list
+    /*
+     * Given a nested list of integers, returns the sum of all integers in the
+     * list weighted by their depth For example, given the list {{1,1},2,{1,1}}
+     * the function should return 10 (four 1's at depth 2, one 2 at depth 1)
+     * Given the list {1,{4,{6}}} the function should return 27 (one 1 at depth
+     * 1, one 4 at depth 2, and one 6 at depth 3)
      */
-    boolean isInteger();
 
-    /**
-     * @return the single integer that this NestedInteger holds, if it holds a
-     *         single integer
-     *         Return null if this NestedInteger holds a nested list
-     */
-    Integer getInteger();
+    public interface NestedInteger {
+	/**
+	 * @return true if this NestedInteger holds a single integer, rather
+	 *         than a nested list
+	 */
+	boolean isInteger();
 
-    /**
-     * @return the nested list that this NestedInteger holds, if it holds a
-     *         nested list
-     *         Return null if this NestedInteger holds a single integer
-     */
-    List<NestedInteger> getList();
-  }
+	/**
+	 * @return the single integer that this NestedInteger holds, if it holds
+	 *         a single integer Return null if this NestedInteger holds a
+	 *         nested list
+	 */
+	Integer getInteger();
 
-  public int depthSum(List<NestedInteger> input)
-  { // ur implementation here}
-    int finalSum = 0;
-    for (NestedInteger nestedInteger : input) {
-      finalSum += depthSumInternal(nestedInteger, 1);
+	/**
+	 * @return the nested list that this NestedInteger holds, if it holds a
+	 *         nested list Return null if this NestedInteger holds a single
+	 *         integer
+	 */
+	List<NestedInteger> getList();
     }
-    return finalSum;
-  }
 
-  private int depthSumInternal(NestedInteger input, int level)
-  {
-    int returnSum = 0;
-    if (input.isInteger()) return level * input.getInteger();
-    for (NestedInteger childInput : input.getList()) {
-      int childLevel = level + 1;
-      returnSum += depthSumInternal(childInput, childLevel);
+    public int depthSum(List<NestedInteger> input) { // ur implementation here}
+	int finalSum = 0;
+	for (NestedInteger nestedInteger : input) {
+	    finalSum += depthSumInternal(nestedInteger, 1);
+	}
+	return finalSum;
     }
-    return returnSum;
-  }
 
-  public static void main(String[] args)
-  {
-    // TODO Auto-generated method stub
+    private int depthSumInternal(NestedInteger input, int level) {
+	int returnSum = 0;
+	if (input.isInteger())
+	    return level * input.getInteger();
+	for (NestedInteger childInput : input.getList()) {
+	    int childLevel = level + 1;
+	    returnSum += depthSumInternal(childInput, childLevel);
+	}
+	return returnSum;
+    }
 
-  }
+    public static void main(String[] args) {
+	// TODO Auto-generated method stub
+
+    }
 
 }

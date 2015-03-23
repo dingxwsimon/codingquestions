@@ -14,26 +14,23 @@ package number;
  * @since Mar 8, 2010 10:43:40 AM
  * 
  */
-public class AddDigit
-{
+public class AddDigit {
 
-  public static int add_digit(int k)
-  {
-    while (k > 9) {
-      k = k / 10 + k % 10;
+    public static int add_digit(int k) {
+	while (k > 9) {
+	    k = k / 10 + k % 10;
+	}
+
+	return k;
+
     }
 
-    return k;
-
-  }
-
-  /**
-   * @param args
-   */
-  public static void main(String[] args)
-  {
-    // TODO Auto-generated method stub
-    System.out.println(AddDigit.add_digit(1234579));
-  }
+    /**
+     * @param args
+     */
+    public static void main(String[] args) {
+	// TODO Auto-generated method stub
+	System.out.println(AddDigit.add_digit(1234579));
+    }
 
 }

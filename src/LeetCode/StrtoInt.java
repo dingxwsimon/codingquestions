@@ -2,6 +2,7 @@ package LeetCode;
 
 public class StrtoInt {
     private static final int maxDiv10 = Integer.MAX_VALUE / 10;
+
     public int atoi2(String str) {
 	if (str == null || str.length() == 0)
 	    return 0;
