@@ -26,34 +26,25 @@ public class ReservoirSampling {
     }
 
     // remember it
-    public void reservoirSampling(int k) throws FileNotFoundException,
-	    IOException {
-	File f = new File("data.txt");
-	// creating buffered reader object to read the file contains our data
-	BufferedReader br = new BufferedReader(new FileReader(f));
-	String currentLine;
-	int reservoirSize = 10;
-	// reservoirList is where our selected lines stored
-	List<String> reservoirList = new ArrayList<String>(reservoirSize);
-	// we will use this counter to count the current line numebr while
-	// iterating
-	int count = 0;
-	Random ra = new Random();
-
-	int randomNumber;
-	// here we will iterate through the file till it ends
-	while ((currentLine = br.readLine()) != null) {
-	    // increase the line number
-	    count++;
-	    if (count <= k) {
-		reservoirList.add(currentLine);
-	    } else {
-		randomNumber = (int) ra.nextInt(count);
-		if (randomNumber < reservoirSize) {
-		    reservoirList.set(randomNumber, currentLine);
-		}
-	    }
-	}
+    public List<Integer> sample(List<Integer> list, int k) {
+        final List<Integer> samples = new ArrayList<Integer>(k);
+        int count = 0;
+        final Random random = new Random();
+        for (int item : list) {
+            if (count < k) {
+                samples.add(item);
+            } else {
+                // http://en.wikipedia.org/wiki/Reservoir_sampling
+                // In effect, for all i, the ith element of S is chosen to be included in the reservoir with probability
+                // k/i.
+                int randomPos = random.nextInt(count + 1);
+                if (randomPos < k) {
+                    samples.set(randomPos, item);
+                }
+            }
+            count++;
+        }
+        return samples;
     }
 
     /**
