@@ -41,10 +41,7 @@ public class WordBreak {
 	dp[0] = true;
 	for (int i = 1; i <= len; i++) {
 	    for (int j = 0; j < i; j++) {
-		if (!dp[j]) {
-		    continue;
-		}
-		if (dict.contains(s.substring(j, i))) {
+		if (dict.contains(s.substring(j, i)) && dp[j]) {
 		    dp[i] = true;
 		    break;
 		}
@@ -102,35 +99,9 @@ public class WordBreak {
 
     }
 
+
     // only find whether breaking is possible or not
-    public void wordBreak(boolean[][] dp, String s, Set<String> dict) { // fill
-									// the
-									// table
-									// to
-									// judge
-									// any
-									// substring
-									// if it
-									// could
-									// be
-									// broke
-									// or
-									// not
-									// Note:
-									// The
-									// Solution
-									// object
-									// is
-									// instantiated
-									// only
-									// once
-									// and
-									// is
-									// reused
-									// by
-									// each
-									// test
-									// case.
+    public void wordBreak(boolean[][] dp, String s, Set<String> dict) { 
 	for (int i = 0; i < s.length(); i++)
 	    dp[i][i] = dict.contains(s.substring(i, i + 1));
 	for (int i = 1; i < s.length(); i++) {
