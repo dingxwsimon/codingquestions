@@ -21,11 +21,8 @@ public class InsertionSortList {
 	    } else {
 		pre = head;
 		next = head.next;
-		while (next != null && next.val < cur.val) // if cur.val larger
-							   // than
-							   // next.val, pre++
-							   // and next++
-							   // (move to next)
+		// if cur.val larger than next.val, pre++ and next++ (move to next)
+		while (next != null && next.val < cur.val) 
 		{
 		    pre = next;
 		    next = next.next;

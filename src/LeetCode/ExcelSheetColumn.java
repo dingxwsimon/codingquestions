@@ -24,7 +24,9 @@ public class ExcelSheetColumn {
 
     public static void main(String[] args) {
 	// TODO Auto-generated method stub
-
+	ExcelSheetColumn esc = new ExcelSheetColumn();
+	System.out.println(esc.convertToTitle(345));
+	System.out.println(esc.titleToNumber("aax"));
     }
 
 }
