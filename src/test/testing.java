@@ -3,33 +3,55 @@ package test;
 import java.util.ArrayList;
 
 public class testing {
-    public static int maxProfit1(int[] prices) {
-	// Start typing your Java solution below
-	// DO NOT write main() function
-	if (prices.length < 2)
-	    return 0;
-
-	int buy_date = 0;
-	int max_profit = 0;
-
-	for (int i = 0; i < prices.length; i++) {
-	    if (prices[i] < prices[buy_date]) {
-		buy_date = i;
+    public ArrayList<String> parseCSV(String input) {
+	if (input == null || input.length() == 0)
+	    return null;
+	ArrayList<String> result = new ArrayList<String>();
+	StringBuilder sb = new StringBuilder();
+	int n = input.length();
+	// boolean singleQuote = false;
+	for (int i = 0; i < n; i++) {
+	    char c = input.charAt(i);
+	    if (c != ',' && c != '\"') {
+		sb.append(c);
+	    } else if (c == ',') {
+		// if(!singleQuote){
+		result.add(sb.toString());
+		sb = new StringBuilder();
+		// }
+	    } else if (c == '\"') {
+		i = getStringBeweenQuote(input, i, sb);
 	    }
-	    int tmp_profit = prices[i] - prices[buy_date];
-	    if (tmp_profit > max_profit)
-		max_profit = tmp_profit;
 	}
-	return max_profit;
+	result.add(sb.toString());
+	return result;
+    }
+
+    private int getStringBeweenQuote(String input, int start, StringBuilder sb) {
+	int i = start + 1;
+	while (i < input.length()) {
+	    char c = input.charAt(i);
+	    if (c == '\"') {
+		int next = i + 1;
+		if (next == input.length() || input.charAt(next) != '\"') {
+		    break;
+		} else {
+		    i = next;
+		    sb.append('\"');
+		}
+	    } else {
+		sb.append(c);
+	    }
+	    i++;
+	}
+	return i;
     }
 
     public static void main(String[] args) {
-	ArrayList<String> strings = new ArrayList<String>();
-	strings.add("Hello, World!");
-	strings.add("Welcome to CoderPad.");
-	strings.add("This pad is running Java 8.");
-
-	for (String string : strings) {
+	testing s = new testing();
+	ArrayList<String> result = s
+		.parseCSV("alice,bob,carol");
+	for (String string : result) {
 	    System.out.println(string);
 	}
     }

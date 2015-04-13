@@ -50,24 +50,24 @@ public class SurroundedRegions {
 	}
     }
 
-    public void markUnflippable(char[][] board, int r, int c) {
-	int[] dirX = { -1, 0, 1, 0 };
-	int[] dirY = { 0, 1, 0, -1 };
-	ArrayDeque<Pair> stack = new ArrayDeque<Pair>();
-	stack.push(new Pair(r, c));
-	while (!stack.isEmpty()) {
-	    Pair p = stack.pop();
-	    board[p.first][p.second] = 'U';
-	    for (int i = 0; i < dirX.length; ++i) {
-		if (p.first + dirX[i] >= 0 && p.first + dirX[i] < board.length
-			&& p.second + dirY[i] >= 0
-			&& p.second + dirY[i] < board[p.first + dirX[i]].length
-			&& board[p.first + dirX[i]][p.second + dirY[i]] == 'O') {
-		    stack.push(new Pair(p.first + dirX[i], p.second + dirY[i]));
-		}
-	    }
-	}
-    }
+        public void markUnflippable(char[][] board, int r, int c) {
+    	int[] dirX = { -1, 0, 1, 0 };
+    	int[] dirY = { 0, 1, 0, -1 };
+    	ArrayDeque<Pair> stack = new ArrayDeque<Pair>();
+    	stack.push(new Pair(r, c));
+    	while (!stack.isEmpty()) {
+    	    Pair p = stack.pop();
+    	    board[p.first][p.second] = 'U';
+    	    for (int i = 0; i < dirX.length; ++i) {
+    		if (p.first + dirX[i] >= 0 && p.first + dirX[i] < board.length
+    			&& p.second + dirY[i] >= 0
+    			&& p.second + dirY[i] < board[p.first + dirX[i]].length
+    			&& board[p.first + dirX[i]][p.second + dirY[i]] == 'O') {
+    		    stack.push(new Pair(p.first + dirX[i], p.second + dirY[i]));
+    		}
+    	    }
+    	}
+        }
 
     int[] unionSet; // union find set
     boolean[] hasEdgeO; // whether an union has an 'O' which is on the edge of
