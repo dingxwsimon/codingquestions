@@ -3,6 +3,7 @@ package LeetCode;
 public class Candy {
 
     public static int candy(int[] ratings) {
+	//this is a test
 	if (ratings == null || ratings.length == 0)
 	    return 0;
 	int n = ratings.length;
