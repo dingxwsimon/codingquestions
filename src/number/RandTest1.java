@@ -67,167 +67,167 @@ public class RandTest1 {
     // as Chi-Square. We need to also test for independence.
     public static class Rand1 {
 
-	private final long mask = (1L << 32) - 1; // this is "m" = 2^32
-	private final long multiplier = 1194211693L; // this is "a"
-	private final long adder = 12345L; // this is "c"
-	private long randSeed;
+        private final long mask = (1L << 32) - 1; // this is "m" = 2^32
+        private final long multiplier = 1194211693L; // this is "a"
+        private final long adder = 12345L; // this is "c"
+        private long randSeed;
 
-	public Rand1() {
-	    randSeed = System.currentTimeMillis();
-	}
+        public Rand1() {
+            randSeed = System.currentTimeMillis();
+        }
 
-	public Rand1(long s) {
-	    randSeed = s;
-	}
+        public Rand1(long s) {
+            randSeed = s;
+        }
 
-	public int nextShort(int n) {
-	    randSeed = (multiplier * randSeed + adder) & mask;
-	    int shortAns = Math.abs((int) randSeed >> 16);
-	    return (shortAns % n);
-	}
+        public int nextShort(int n) {
+            randSeed = (multiplier * randSeed + adder) & mask;
+            int shortAns = Math.abs((int) randSeed >> 16);
+            return (shortAns % n);
+        }
 
-	public int bogusInt(int n) {
-	    randSeed = (multiplier * randSeed + adder) & mask;
-	    int intAns = Math.abs((int) randSeed);
-	    return (intAns % n);
-	}
+        public int bogusInt(int n) {
+            randSeed = (multiplier * randSeed + adder) & mask;
+            int intAns = Math.abs((int) randSeed);
+            return (intAns % n);
+        }
 
     }
 
     public static void main(String[] args) throws IOException {
 
-	long[] A1 = null, A2 = null, A3 = null, A4 = null, Aequal = null;
+        long[] A1 = null, A2 = null, A3 = null, A4 = null, Aequal = null;
 
-	// Note the different ranges shown, and note in particular how
-	// generator R3 performs on the different values within the
-	// range array. In particular, note that R3 gives an acceptable
-	// distribution (or at least close to an acceptable distribution)
-	// up until range = 10000 and 25000, where it is terrible. However,
-	// it is again acceptable (at least to the naked eye) for range =
-	// 32768. See Rand1.java and notes on board for more about this.
+        // Note the different ranges shown, and note in particular how
+        // generator R3 performs on the different values within the
+        // range array. In particular, note that R3 gives an acceptable
+        // distribution (or at least close to an acceptable distribution)
+        // up until range = 10000 and 25000, where it is terrible. However,
+        // it is again acceptable (at least to the naked eye) for range =
+        // 32768. See Rand1.java and notes on board for more about this.
 
-	// Note also that the R4 generator which is using the lower order
-	// bits has somewhat odd behavior. For example, note that it always
-	// gives a perfect distribution for n = 2. As stated above, this is
-	// actually not "random" behavior and shows a problem with the generator
-	// In fact, the problem can be better seen with independence tests such
-	// as run tests and correlation tests. If you print out the values when
-	// n = 2 you will see that the 0s and 1s alternate, thus giving the
-	// "perfect" distribution. However, for some ranges the result seems
-	// acceptable.
+        // Note also that the R4 generator which is using the lower order
+        // bits has somewhat odd behavior. For example, note that it always
+        // gives a perfect distribution for n = 2. As stated above, this is
+        // actually not "random" behavior and shows a problem with the generator
+        // In fact, the problem can be better seen with independence tests such
+        // as run tests and correlation tests. If you print out the values when
+        // n = 2 you will see that the 0s and 1s alternate, thus giving the
+        // "perfect" distribution. However, for some ranges the result seems
+        // acceptable.
 
-	// int[] ranges = { 2, 21, 64, 101, 256, 10000, 25000, 32768 };
-	// double[] alphas = { 0.975, 0.95, 0.9, 0.8, 0.2, 0.1, 0.05, 0.025 };
-	int[] ranges = { 64 };
-	double[] alphas = { 0.9 };
-	for (int r = 0; r < ranges.length; r++) {
-	    int range = ranges[r];
-	    int iter = 100 * range;
-	    A1 = new long[range];
-	    A2 = new long[range];
-	    A3 = new long[range];
-	    A4 = new long[range];
-	    Aequal = new long[range];
+        // int[] ranges = { 2, 21, 64, 101, 256, 10000, 25000, 32768 };
+        // double[] alphas = { 0.975, 0.95, 0.9, 0.8, 0.2, 0.1, 0.05, 0.025 };
+        int[] ranges = {64};
+        double[] alphas = {0.9};
+        for (int r = 0; r < ranges.length; r++) {
+            int range = ranges[r];
+            int iter = 100 * range;
+            A1 = new long[range];
+            A2 = new long[range];
+            A3 = new long[range];
+            A4 = new long[range];
+            Aequal = new long[range];
 
-	    for (int i = 0; i < range; i++) {
-		A1[i] = 0;
-		A2[i] = 0;
-		A3[i] = 0;
-		A4[i] = 0;
-		Aequal[i] = iter / range;
-	    } // initialize values to 0
+            for (int i = 0; i < range; i++) {
+                A1[i] = 0;
+                A2[i] = 0;
+                A3[i] = 0;
+                A4[i] = 0;
+                Aequal[i] = iter / range;
+            } // initialize values to 0
 
-	    long seed = System.currentTimeMillis();
-	    Random R1 = new Random(seed);
-	    Random R2 = new Random(seed);
-	    Rand1 R3 = new Rand1(seed);
-	    Rand1 R4 = new Rand1(seed);
+            long seed = System.currentTimeMillis();
+            Random R1 = new Random(seed);
+            Random R2 = new Random(seed);
+            Rand1 R3 = new Rand1(seed);
+            Rand1 R4 = new Rand1(seed);
 
-	    for (int i = 0; i < iter; i++) {
-		long num = R1.nextInt(range);
-		A1[(int) num]++;
-		num = Math.abs(R2.nextInt()) % range;
-		A2[(int) num]++;
-		num = R3.nextShort(range);
-		A3[(int) num]++;
-		num = R4.bogusInt(range);
-		A4[(int) num]++;
-	    }
+            for (int i = 0; i < iter; i++) {
+                long num = R1.nextInt(range);
+                A1[(int) num]++;
+                num = Math.abs(R2.nextInt()) % range;
+                A2[(int) num]++;
+                num = R3.nextShort(range);
+                A3[(int) num]++;
+                num = R4.bogusInt(range);
+                A4[(int) num]++;
+            }
 
-	    System.out.println("---------------------------------------------");
-	    int lowTop = Math.min(10, range);
-	    int hiBot = Math.max(lowTop + 1, range - 10);
+            System.out.println("---------------------------------------------");
+            int lowTop = Math.min(10, range);
+            int hiBot = Math.max(lowTop + 1, range - 10);
 
-	    for (int i = 0; i < lowTop; i++) {
-		System.out.print(A1[i] + " ");
-	    }
-	    System.out.println("\n ... ");
-	    for (int i = hiBot; i < range; i++) {
-		System.out.print(A1[i] + " ");
-	    }
-	    System.out.println("\n");
+            for (int i = 0; i < lowTop; i++) {
+                System.out.print(A1[i] + " ");
+            }
+            System.out.println("\n ... ");
+            for (int i = hiBot; i < range; i++) {
+                System.out.print(A1[i] + " ");
+            }
+            System.out.println("\n");
 
-	    for (int i = 0; i < lowTop; i++) {
-		System.out.print(A2[i] + " ");
-	    }
-	    System.out.println("\n ... ");
-	    for (int i = hiBot; i < range; i++) {
-		System.out.print(A2[i] + " ");
-	    }
-	    System.out.println("\n");
+            for (int i = 0; i < lowTop; i++) {
+                System.out.print(A2[i] + " ");
+            }
+            System.out.println("\n ... ");
+            for (int i = hiBot; i < range; i++) {
+                System.out.print(A2[i] + " ");
+            }
+            System.out.println("\n");
 
-	    for (int i = 0; i < lowTop; i++) {
-		System.out.print(A3[i] + " ");
-	    }
-	    System.out.println("\n ... ");
-	    for (int i = hiBot; i < range; i++) {
-		System.out.print(A3[i] + " ");
-	    }
-	    System.out.println("\n");
+            for (int i = 0; i < lowTop; i++) {
+                System.out.print(A3[i] + " ");
+            }
+            System.out.println("\n ... ");
+            for (int i = hiBot; i < range; i++) {
+                System.out.print(A3[i] + " ");
+            }
+            System.out.println("\n");
 
-	    for (int i = 0; i < lowTop; i++) {
-		System.out.print(A4[i] + " ");
-	    }
-	    System.out.println("\n ... ");
-	    for (int i = hiBot; i < range; i++) {
-		System.out.print(A4[i] + " ");
-	    }
-	    System.out.println("\n");
+            for (int i = 0; i < lowTop; i++) {
+                System.out.print(A4[i] + " ");
+            }
+            System.out.println("\n ... ");
+            for (int i = hiBot; i < range; i++) {
+                System.out.print(A4[i] + " ");
+            }
+            System.out.println("\n");
 
-	    System.out.println("Array size (i.e. range) = " + range);
+            System.out.println("Array size (i.e. range) = " + range);
 
-	    double check1 = chisquare(A1, iter);
-	    double check2 = chisquare(A2, iter);
-	    double check3 = chisquare(A3, iter);
-	    double check4 = chisquare(A4, iter);
-	    double checkeq = chisquare(Aequal, iter);
+            double check1 = chisquare(A1, iter);
+            double check2 = chisquare(A2, iter);
+            double check3 = chisquare(A3, iter);
+            double check4 = chisquare(A4, iter);
+            double checkeq = chisquare(Aequal, iter);
 
-	    System.out.println("Chi Square using nextInt(n): " + check1);
-	    System.out.println("Chi Square using nextInt() % n: " + check2);
-	    System.out.println("Chi Square using CS 0445 gen: " + check3);
-	    System.out.println("Chi Square using lower bit gen: " + check4);
-	    System.out.println("Chi Square using all equal: " + checkeq);
-	    System.out.println();
+            System.out.println("Chi Square using nextInt(n): " + check1);
+            System.out.println("Chi Square using nextInt() % n: " + check2);
+            System.out.println("Chi Square using CS 0445 gen: " + check3);
+            System.out.println("Chi Square using lower bit gen: " + check4);
+            System.out.println("Chi Square using all equal: " + checkeq);
+            System.out.println();
 
-	    System.out.println("Critical Values of Chi-Square:");
-	    for (int i = 0; i < alphas.length; i++)
-		System.out.println("Alpha: " + alphas[i] + "   Chi-Square: "
-			+ critical(range, alphas[i]));
-	    System.out.println();
-	}
+            System.out.println("Critical Values of Chi-Square:");
+            for (int i = 0; i < alphas.length; i++)
+                System.out.println("Alpha: " + alphas[i] + "   Chi-Square: "
+                        + critical(range, alphas[i]));
+            System.out.println();
+        }
     }
 
     // Simple algorithm to do the Chi-Square test for an array of frequencies,
     // where the possible values were assumed to have uniform probability.
     public static double chisquare(long[] A, int iter) {
-	double expecti = (double) iter / A.length;
-	double t = 0;
-	for (int i = 0; i < A.length; i++) {
-	    double diff = A[i] - expecti;
-	    t += diff * diff;
-	}
-	double ans = t / expecti;
-	return ans;
+        double expecti = (double) iter / A.length;
+        double t = 0;
+        for (int i = 0; i < A.length; i++) {
+            double diff = A[i] - expecti;
+            t += diff * diff;
+        }
+        double ans = t / expecti;
+        return ans;
     }
 
     // Below is a formula for estimating the critical value of Chi-Square when
@@ -248,24 +248,24 @@ public class RandTest1 {
     // significance
     // level
     public static double critical(int k, double alpha) {
-	int kMinus1 = k - 1;
-	double oneMinusAlpha = 1 - alpha;
-	double temp1 = (double) 2 / (9 * kMinus1);
-	double temp2 = Math.sqrt(temp1);
-	// To estimate our critical value we need to use the inverse normal
-	// function.
-	// This takes a probability (in the CDF for N(0,1)) and returns the z
-	// value
-	// (i.e. the number of standard deviations that produces that
-	// probability).
-	// I
-	// got the code from the Web (see CDF_Normal.java for more details).
-	double zOneMinusAlpha = CDF_Normal.xnormi(oneMinusAlpha);
-	temp2 = temp2 * zOneMinusAlpha;
-	temp1 = 1 - temp1 + temp2;
-	temp1 = Math.pow(temp1, 3);
-	temp1 = temp1 * kMinus1;
-	return temp1;
+        int kMinus1 = k - 1;
+        double oneMinusAlpha = 1 - alpha;
+        double temp1 = (double) 2 / (9 * kMinus1);
+        double temp2 = Math.sqrt(temp1);
+        // To estimate our critical value we need to use the inverse normal
+        // function.
+        // This takes a probability (in the CDF for N(0,1)) and returns the z
+        // value
+        // (i.e. the number of standard deviations that produces that
+        // probability).
+        // I
+        // got the code from the Web (see CDF_Normal.java for more details).
+        double zOneMinusAlpha = CDF_Normal.xnormi(oneMinusAlpha);
+        temp2 = temp2 * zOneMinusAlpha;
+        temp1 = 1 - temp1 + temp2;
+        temp1 = Math.pow(temp1, 3);
+        temp1 = temp1 * kMinus1;
+        return temp1;
     }
 
 }

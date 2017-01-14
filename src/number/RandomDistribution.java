@@ -16,32 +16,32 @@ public class RandomDistribution {
     int sum = 0;
 
     public RandomDistribution(int[] weights) {
-	for (int w : weights) {
-	    sum += w;
-	}
-	int slot = 0;
-	int partial = weights[slot];
-	for (int i = 0; i < sum; i++) {
-	    if (i >= partial) {
-		slot += 1;
-		partial += weights[slot];
-	    }
-	    alias.put(i, slot);
-	}
+        for (int w : weights) {
+            sum += w;
+        }
+        int slot = 0;
+        int partial = weights[slot];
+        for (int i = 0; i < sum; i++) {
+            if (i >= partial) {
+                slot += 1;
+                partial += weights[slot];
+            }
+            alias.put(i, slot);
+        }
     }
 
     public int next() {
-	return alias.get((int) (Math.random() * (sum - 1)));
+        return alias.get((int) (Math.random() * (sum - 1)));
     }
 
     /**
      * @param args
      */
     public static void main(String[] args) {
-	// TODO Auto-generated method stub
-	int[] dis = new int[] { 1, 2, 3, 2, 1 };
-	RandomDistribution rd = new RandomDistribution(dis);
-	System.out.println(rd.next());
+        // TODO Auto-generated method stub
+        int[] dis = new int[]{1, 2, 3, 2, 1};
+        RandomDistribution rd = new RandomDistribution(dis);
+        System.out.println(rd.next());
     }
 
 }

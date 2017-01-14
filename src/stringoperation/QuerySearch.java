@@ -9,48 +9,48 @@ import java.util.Set;
 public class QuerySearch {
 
     /*
-     * ÓÐÒ»¸ö³¤¶ÈÎªnµÄ×Ö·û´®str£¬ÓÐ·Ç³£¶àµÄ¹Ø¼ü×Öquery£¨³¤¶È²»³¬¹ý10£©£¬ÐèÒªÅÐ¶ÏÃ¿¸ö¹Ø¼ü×ÖÊÇ·ñÊÇstrµÄ×Ó´®¡£
-     * ×¢Òâ£ºqueryÊÇ¶¯Ì¬µÄÊäÈë½øÐÐ²éÑ¯µÄ£¬Ô¤ÏÈ²¢²»ÖªµÀËùÓÐµÄquery¡£
+     * ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªnï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½strï¿½ï¿½ï¿½Ð·Ç³ï¿½ï¿½ï¿½Ä¹Ø¼ï¿½ï¿½ï¿½queryï¿½ï¿½ï¿½ï¿½ï¿½È²ï¿½ï¿½ï¿½ï¿½ï¿½10ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½Ð¶ï¿½Ã¿ï¿½ï¿½ï¿½Ø¼ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½strï¿½ï¿½ï¿½Ó´ï¿½ï¿½ï¿½
+     * ×¢ï¿½â£ºqueryï¿½Ç¶ï¿½Ì¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð²ï¿½Ñ¯ï¿½Ä£ï¿½Ô¤ï¿½È²ï¿½ï¿½ï¿½Öªï¿½ï¿½ï¿½ï¿½ï¿½Ðµï¿½queryï¿½ï¿½
      */
 
     private List<String> prefixList;
 
     // pre-process the large string
     public void initWithString(String str) {
-	Set<String> strs = new HashSet<String>();
+        Set<String> strs = new HashSet<String>();
 
-	for (int i = 0; i < str.length(); ++i) {
-	    strs.add(str.substring(i, Math.min(str.length(), i + 10)));
-	}
-	prefixList = new ArrayList<String>(strs);
-	Collections.sort(prefixList);
+        for (int i = 0; i < str.length(); ++i) {
+            strs.add(str.substring(i, Math.min(str.length(), i + 10)));
+        }
+        prefixList = new ArrayList<String>(strs);
+        Collections.sort(prefixList);
     }
 
     // find the query substring
     public boolean existSubString(String query) {
-	int low = 0;
-	int high = prefixList.size() - 1;
-	while (low <= high) {
-	    int mid = (low + high) / 2;
-	    int comp = prefixList.get(mid).compareTo(query);
-	    if (comp == 0) {
-		return true;
-	    }
-	    if (prefixList.get(mid).startsWith(query)) {
-		return true;
-	    }
-	    if (comp > 0) // mid > query
-	    {
-		high = mid - 1;
-	    } else {
-		low = mid + 1;
-	    }
-	}
-	return false;
+        int low = 0;
+        int high = prefixList.size() - 1;
+        while (low <= high) {
+            int mid = (low + high) / 2;
+            int comp = prefixList.get(mid).compareTo(query);
+            if (comp == 0) {
+                return true;
+            }
+            if (prefixList.get(mid).startsWith(query)) {
+                return true;
+            }
+            if (comp > 0) // mid > query
+            {
+                high = mid - 1;
+            } else {
+                low = mid + 1;
+            }
+        }
+        return false;
     }
 
     public static void main(String[] args) {
-	// TODO Auto-generated method stub
+        // TODO Auto-generated method stub
 
     }
 

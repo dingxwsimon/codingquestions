@@ -12,13 +12,13 @@ public class CokeMachine {
      */
 
     static class Interval {
-	double min;
-	double max;
+        double min;
+        double max;
 
-	Interval(double min, double max) {
-	    this.min = min;
-	    this.max = max;
-	}
+        Interval(double min, double max) {
+            this.min = min;
+            this.max = max;
+        }
     }
 
     /*
@@ -40,7 +40,7 @@ public class CokeMachine {
      */
 
     public static void main(String[] args) {
-	// TODO Auto-generated method stub
+        // TODO Auto-generated method stub
 
     }
 

@@ -5,14 +5,14 @@ public class Regex {
     // c = 256 means split
     // c = 257 means Match
     public static class State {
-	int c;
-	State out;
-	State out1;
-	int lastlist;
+        int c;
+        State out;
+        State out1;
+        int lastlist;
     }
 
     public static class Frag {
-	State start;
+        State start;
 
     }
 
@@ -20,7 +20,7 @@ public class Regex {
      * @param args
      */
     public static void main(String[] args) {
-	// TODO Auto-generated method stub
+        // TODO Auto-generated method stub
 
     }
 

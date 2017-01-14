@@ -14,154 +14,154 @@ import java.util.Stack;
 public class TopologySort {
 
     public static class Node {
-	public final String name;
-	public final HashSet<Edge> inEdges;
-	public final HashSet<Edge> outEdges;
+        public final String name;
+        public final HashSet<Edge> inEdges;
+        public final HashSet<Edge> outEdges;
 
-	public Node(String name) {
-	    this.name = name;
-	    inEdges = new HashSet<Edge>();
-	    outEdges = new HashSet<Edge>();
-	}
+        public Node(String name) {
+            this.name = name;
+            inEdges = new HashSet<Edge>();
+            outEdges = new HashSet<Edge>();
+        }
 
-	public Node addEdge(Node node) {
-	    Edge e = new Edge(this, node);
-	    outEdges.add(e);
-	    node.inEdges.add(e);
-	    return this;
-	}
+        public Node addEdge(Node node) {
+            Edge e = new Edge(this, node);
+            outEdges.add(e);
+            node.inEdges.add(e);
+            return this;
+        }
 
-	@Override
-	public String toString() {
-	    return name;
-	}
+        @Override
+        public String toString() {
+            return name;
+        }
     }
 
     public static class Edge {
-	public final Node from;
-	public final Node to;
+        public final Node from;
+        public final Node to;
 
-	public Edge(Node from, Node to) {
-	    this.from = from;
-	    this.to = to;
-	}
+        public Edge(Node from, Node to) {
+            this.from = from;
+            this.to = to;
+        }
 
-	@Override
-	public boolean equals(Object obj) {
-	    Edge e = (Edge) obj;
-	    return e.from == from && e.to == to;
-	}
+        @Override
+        public boolean equals(Object obj) {
+            Edge e = (Edge) obj;
+            return e.from == from && e.to == to;
+        }
     }
 
     /*
-     * ÓÐn¸öÈÎÎñÐèÒªÍê³É£¨±àºÅ1µ½n£©£¬ÈÎÎñÖ®¼äÓÐÒ»Ð©ÒÀÀµ¹ØÏµ£¬Èç¹ûÈÎÎñaÒÀÀµÓÚÈÎÎñbºÍc£¬ÄÇÃ´Ö»ÓÐµ±ÈÎÎñbºÍÈÎÎñcÍê³ÉÖ®ºó²ÅÄÜÍê³ÉÈÎÎña¡£¸ø¶¨ËùÓÐµÄÒÀÀµ¹ØÏµ
-     * £¬ÅÐ¶ÏÕâÐ©ÈÎÎñÊÇ·ñÄÜ¹»Íê³É¡£Èç¹ûÄÜ¹»Íê³É£¬Çë¸ø³öÒ»¸öºÏ·¨µÄÈÎÎñÍê³ÉÐòÁÐ¡£ ÑùÀý£º n=5 1->2,3 3->4
-     * ÉÏÊöÑùÀýÖÐÈÎÎñ1ÒÀÀµÓÚÈÎÎñ2ºÍÈÎÎñ3£¬ÈÎÎñ3ÒÀÀµÓÚÈÎÎñ4£¬ÄÇÃ´´æÔÚºÏ·¨µÄÈÎÎñÍê³ÉÐòÁÐ4,3,2,1,5
+     * ï¿½ï¿½nï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½É£ï¿½ï¿½ï¿½ï¿½1ï¿½ï¿½nï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö®ï¿½ï¿½ï¿½ï¿½Ò»Ð©ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ïµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½aï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½bï¿½ï¿½cï¿½ï¿½ï¿½ï¿½Ã´Ö»ï¿½Ðµï¿½ï¿½ï¿½ï¿½ï¿½bï¿½ï¿½ï¿½ï¿½ï¿½ï¿½cï¿½ï¿½ï¿½Ö®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½aï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ðµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ïµ
+     * ï¿½ï¿½ï¿½Ð¶ï¿½ï¿½ï¿½Ð©ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½Ü¹ï¿½ï¿½ï¿½É¡ï¿½ï¿½ï¿½ï¿½ï¿½Ü¹ï¿½ï¿½ï¿½É£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½Ï·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¡ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ n=5 1->2,3 3->4
+     * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½2ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½3ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½3ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½4ï¿½ï¿½ï¿½ï¿½Ã´ï¿½ï¿½ï¿½ÚºÏ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½4,3,2,1,5
      */
 
     /*
-     * deps[id]±íÊ¾ÈÎÎñidËùÒÀÀµµÄÈÎÎñ Èç¹û´æÔÚºÏ·¨µÄÈÎÎñÍê³ÉÐòÁÐ£¬·µ»Øtrue£¬·ñÔò·µ»Øfalse
-     * ºÏ·¨µÄÈÎÎñÐòÁÐÇë´æ·ÅÔÚ²ÎÊýresultÖÐ£¨ÒÑ¾­·ÖÅä¿Õ¼ä£©
+     * deps[id]ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½idï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÚºÏ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð£ï¿½ï¿½ï¿½ï¿½ï¿½trueï¿½ï¿½ï¿½ï¿½ï¿½ò·µ»ï¿½false
+     * ï¿½Ï·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú²ï¿½ï¿½ï¿½resultï¿½Ð£ï¿½ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½ï¿½Õ¼ä£©
      */
     public boolean jobSchedule(Map<Integer, List<Integer>> deps, int n,
-	    int[] result) {
-	int[] indeg = new int[n + 1];
-	// reverse map
-	Map<Integer, List<Integer>> rmap = new HashMap<Integer, List<Integer>>();
-	for (Map.Entry<Integer, List<Integer>> entry : deps.entrySet()) {
-	    int id1 = entry.getKey();
-	    for (int id2 : entry.getValue()) {
-		if (!rmap.containsKey(id2))
-		    rmap.put(id2, new ArrayList<Integer>());
-		rmap.get(id2).add(id1);
-		indeg[id1]++;
-	    }
-	}
-	Stack<Integer> sta = new Stack<Integer>();
-	for (int i = 1; i <= n; i++)
-	    if (indeg[i] == 0) {
-		// all the task has no dependency
-		sta.push(i);
-	    }
-	for (int t = 0; t < n; t++) {
-	    if (sta.empty())
-		return false;
-	    int id = sta.pop();
-	    result[t] = id;
-	    if (rmap.containsKey(id)) {
-		for (int id2 : rmap.get(id)) {
-		    indeg[id2]--;
-		    if (indeg[id2] == 0)
-			sta.push(id2);
-		}
-	    }
-	}
-	return true;
+                               int[] result) {
+        int[] indeg = new int[n + 1];
+        // reverse map
+        Map<Integer, List<Integer>> rmap = new HashMap<Integer, List<Integer>>();
+        for (Map.Entry<Integer, List<Integer>> entry : deps.entrySet()) {
+            int id1 = entry.getKey();
+            for (int id2 : entry.getValue()) {
+                if (!rmap.containsKey(id2))
+                    rmap.put(id2, new ArrayList<Integer>());
+                rmap.get(id2).add(id1);
+                indeg[id1]++;
+            }
+        }
+        Stack<Integer> sta = new Stack<Integer>();
+        for (int i = 1; i <= n; i++)
+            if (indeg[i] == 0) {
+                // all the task has no dependency
+                sta.push(i);
+            }
+        for (int t = 0; t < n; t++) {
+            if (sta.empty())
+                return false;
+            int id = sta.pop();
+            result[t] = id;
+            if (rmap.containsKey(id)) {
+                for (int id2 : rmap.get(id)) {
+                    indeg[id2]--;
+                    if (indeg[id2] == 0)
+                        sta.push(id2);
+                }
+            }
+        }
+        return true;
     }
 
     public static void main(String[] args) {
-	Node seven = new Node("7");
-	Node five = new Node("5");
-	Node three = new Node("3");
-	Node eleven = new Node("11");
-	Node eight = new Node("8");
-	Node two = new Node("2");
-	Node nine = new Node("9");
-	Node ten = new Node("10");
-	seven.addEdge(eleven).addEdge(eight);
-	five.addEdge(eleven);
-	three.addEdge(eight).addEdge(ten);
-	eleven.addEdge(two).addEdge(nine).addEdge(ten);
-	eight.addEdge(nine).addEdge(ten);
+        Node seven = new Node("7");
+        Node five = new Node("5");
+        Node three = new Node("3");
+        Node eleven = new Node("11");
+        Node eight = new Node("8");
+        Node two = new Node("2");
+        Node nine = new Node("9");
+        Node ten = new Node("10");
+        seven.addEdge(eleven).addEdge(eight);
+        five.addEdge(eleven);
+        three.addEdge(eight).addEdge(ten);
+        eleven.addEdge(two).addEdge(nine).addEdge(ten);
+        eight.addEdge(nine).addEdge(ten);
 
-	Node[] allNodes = { seven, five, three, eleven, eight, two, nine, ten };
-	// L <- Empty list that will contain the sorted elements
-	ArrayList<Node> L = new ArrayList<Node>();
+        Node[] allNodes = {seven, five, three, eleven, eight, two, nine, ten};
+        // L <- Empty list that will contain the sorted elements
+        ArrayList<Node> L = new ArrayList<Node>();
 
-	// S <- Set of all nodes with no incoming edges
-	HashSet<Node> S = new HashSet<Node>();
-	for (Node n : allNodes) {
-	    if (n.inEdges.size() == 0) {
-		S.add(n);
-	    }
-	}
-	// while S is non-empty do
-	while (!S.isEmpty()) {
-	    // remove a node n from S
-	    Node n = S.iterator().next();
-	    S.remove(n);
+        // S <- Set of all nodes with no incoming edges
+        HashSet<Node> S = new HashSet<Node>();
+        for (Node n : allNodes) {
+            if (n.inEdges.size() == 0) {
+                S.add(n);
+            }
+        }
+        // while S is non-empty do
+        while (!S.isEmpty()) {
+            // remove a node n from S
+            Node n = S.iterator().next();
+            S.remove(n);
 
-	    // insert n into L
-	    L.add(n);
+            // insert n into L
+            L.add(n);
 
-	    // for each node m with an edge e from n to m do
-	    for (Iterator<Edge> it = n.outEdges.iterator(); it.hasNext();) {
-		// remove edge e from the graph
-		Edge e = it.next();
-		Node m = e.to;
-		it.remove();// Remove edge from n
-		m.inEdges.remove(e);// Remove edge from m
+            // for each node m with an edge e from n to m do
+            for (Iterator<Edge> it = n.outEdges.iterator(); it.hasNext(); ) {
+                // remove edge e from the graph
+                Edge e = it.next();
+                Node m = e.to;
+                it.remove();// Remove edge from n
+                m.inEdges.remove(e);// Remove edge from m
 
-		// if m has no other incoming edges then insert m into S
-		if (m.inEdges.isEmpty()) {
-		    S.add(m);
-		}
-	    }
-	}
-	// Check to see if all edges are removed
-	boolean cycle = false;
-	for (Node n : allNodes) {
-	    if (!n.inEdges.isEmpty()) {
-		cycle = true;
-		break;
-	    }
-	}
-	if (cycle) {
-	    System.out.println("Cycle present, topological sort not possible");
-	} else {
-	    System.out.println("Topological Sort: "
-		    + Arrays.toString(L.toArray()));
-	}
+                // if m has no other incoming edges then insert m into S
+                if (m.inEdges.isEmpty()) {
+                    S.add(m);
+                }
+            }
+        }
+        // Check to see if all edges are removed
+        boolean cycle = false;
+        for (Node n : allNodes) {
+            if (!n.inEdges.isEmpty()) {
+                cycle = true;
+                break;
+            }
+        }
+        if (cycle) {
+            System.out.println("Cycle present, topological sort not possible");
+        } else {
+            System.out.println("Topological Sort: "
+                    + Arrays.toString(L.toArray()));
+        }
     }
 
 }

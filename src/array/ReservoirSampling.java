@@ -13,16 +13,16 @@ import LeetCode.AddLinkList.ListNode;
 
 public class ReservoirSampling {
     public ListNode sampling(ListNode head) {
-	ListNode s = head;
-	Random rand = new Random();
-	int count = 1;
-	while (head != null) {
-	    int position = (int) (rand.nextInt(count) + 1);
-	    count++;
-	    if (position == 1)
-		s = head;
-	}
-	return s;
+        ListNode s = head;
+        Random rand = new Random();
+        int count = 1;
+        while (head != null) {
+            int position = (int) (rand.nextInt(count) + 1);
+            count++;
+            if (position == 1)
+                s = head;
+        }
+        return s;
     }
 
     // remember it
@@ -51,7 +51,7 @@ public class ReservoirSampling {
      * @param args
      */
     public static void main(String[] args) {
-	// TODO Auto-generated method stub
+        // TODO Auto-generated method stub
 
     }
 

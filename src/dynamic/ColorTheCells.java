@@ -35,69 +35,69 @@ public class ColorTheCells {
     public int[][] dp;
 
     public static void main(String[] args) {
-	int[] val = { 35198, 26281, 72533, 91031, 44326, 43178, 85530 };
-	System.out.println(new ColorTheCells().minimalTime(val));
+        int[] val = {35198, 26281, 72533, 91031, 44326, 43178, 85530};
+        System.out.println(new ColorTheCells().minimalTime(val));
 
     }
 
     public int minimalTime(int[] dryingTime) {
-	min = 1000000;
-	N = dryingTime.length;
-	dry = dryingTime;
-	dp = new int[1 << N][N];
-	for (int[] val : dp) {
-	    Arrays.fill(val, Integer.MAX_VALUE);
-	}
-	time = new int[dryingTime.length];
-	cal(0, 0, 0);
-	return min;
+        min = 1000000;
+        N = dryingTime.length;
+        dry = dryingTime;
+        dp = new int[1 << N][N];
+        for (int[] val : dp) {
+            Arrays.fill(val, Integer.MAX_VALUE);
+        }
+        time = new int[dryingTime.length];
+        cal(0, 0, 0);
+        return min;
     }
 
     public void cal(int index, int mask, int cur) {
-	// System.out.println(mask + " " + cur);
-	if (mask == (1 << N) - 1) {
-	    min = Math.min(cur, min);
-	    return;
-	}
-	if (cur >= min) {
-	    return;
-	}
-	if (dp[mask][index] < cur) {
-	    return;
-	}
-	dp[mask][index] = cur;
+        // System.out.println(mask + " " + cur);
+        if (mask == (1 << N) - 1) {
+            min = Math.min(cur, min);
+            return;
+        }
+        if (cur >= min) {
+            return;
+        }
+        if (dp[mask][index] < cur) {
+            return;
+        }
+        dp[mask][index] = cur;
 
-	if (index + 1 < N) {
-	    int val = 1 << (index + 1);
-	    if ((mask & val) == 0) {
-		time[index + 1] = cur + 1 + dry[index + 1];
-		cal(index, mask | val, cur + 1);
-		time[index + 1] = 0;
-		cal(index + 1, mask, cur + 1);
-	    } else {
-		if (time[index + 1] <= cur) {
-		    cal(index + 1, mask, cur + 1);
-		} else {
-		    cal(index + 1, mask, time[index + 1] + 1);
-		}
-	    }
+        if (index + 1 < N) {
+            int val = 1 << (index + 1);
+            if ((mask & val) == 0) {
+                time[index + 1] = cur + 1 + dry[index + 1];
+                cal(index, mask | val, cur + 1);
+                time[index + 1] = 0;
+                cal(index + 1, mask, cur + 1);
+            } else {
+                if (time[index + 1] <= cur) {
+                    cal(index + 1, mask, cur + 1);
+                } else {
+                    cal(index + 1, mask, time[index + 1] + 1);
+                }
+            }
 
-	}
-	if (index - 1 >= 0) {
-	    int val = 1 << (index - 1);
-	    if ((mask & val) == 0) {
-		time[index - 1] = cur + 1 + dry[index - 1];
-		cal(index, mask | val, cur + 1);
-		time[index - 1] = 0;
-		cal(index - 1, mask, cur + 1);
-	    } else {
-		if (time[index - 1] <= cur) {
-		    cal(index - 1, mask, cur + 1);
-		} else {
-		    cal(index - 1, mask, time[index - 1] + 1);
-		}
-	    }
-	}
+        }
+        if (index - 1 >= 0) {
+            int val = 1 << (index - 1);
+            if ((mask & val) == 0) {
+                time[index - 1] = cur + 1 + dry[index - 1];
+                cal(index, mask | val, cur + 1);
+                time[index - 1] = 0;
+                cal(index - 1, mask, cur + 1);
+            } else {
+                if (time[index - 1] <= cur) {
+                    cal(index - 1, mask, cur + 1);
+                } else {
+                    cal(index - 1, mask, time[index - 1] + 1);
+                }
+            }
+        }
 
     }
 

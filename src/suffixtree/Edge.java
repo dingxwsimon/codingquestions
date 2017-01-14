@@ -29,11 +29,11 @@ public class Edge {
      * unused slot.
      */
     public void insert() {
-	int i = hash(start_node, SuffixTree.T[first_char_index]);
-	while (SuffixTree.EDGES[i].start_node != -1) {
-	    i = ++i % SuffixTree.HASH_TABLE_SIZE;
-	}
-	SuffixTree.EDGES[i] = this;
+        int i = hash(start_node, SuffixTree.T[first_char_index]);
+        while (SuffixTree.EDGES[i].start_node != -1) {
+            i = ++i % SuffixTree.HASH_TABLE_SIZE;
+        }
+        SuffixTree.EDGES[i] = this;
     }
 
     /**
@@ -46,29 +46,29 @@ public class Edge {
      * Knuth, Sorting and Searching, Algorithm R, p. 527
      */
     public void remove() {
-	int i = hash(start_node, SuffixTree.T[first_char_index]);
-	while (SuffixTree.EDGES[i].start_node != start_node
-		|| SuffixTree.EDGES[i].first_char_index != first_char_index)
-	    i = ++i % SuffixTree.HASH_TABLE_SIZE;
-	for (;;) {
-	    SuffixTree.EDGES[i].start_node = -1;
-	    int j = i;
-	    for (;;) {
-		i = ++i % SuffixTree.HASH_TABLE_SIZE;
-		if (SuffixTree.EDGES[i].start_node == -1)
-		    return;
-		int r = hash(SuffixTree.EDGES[i].start_node,
-			SuffixTree.T[SuffixTree.EDGES[i].first_char_index]);
-		if (i >= r && r > j)
-		    continue;
-		if (r > j && j > i)
-		    continue;
-		if (j > i && i >= r)
-		    continue;
-		break;
-	    }
-	    SuffixTree.EDGES[j] = SuffixTree.EDGES[i];
-	}
+        int i = hash(start_node, SuffixTree.T[first_char_index]);
+        while (SuffixTree.EDGES[i].start_node != start_node
+                || SuffixTree.EDGES[i].first_char_index != first_char_index)
+            i = ++i % SuffixTree.HASH_TABLE_SIZE;
+        for (; ; ) {
+            SuffixTree.EDGES[i].start_node = -1;
+            int j = i;
+            for (; ; ) {
+                i = ++i % SuffixTree.HASH_TABLE_SIZE;
+                if (SuffixTree.EDGES[i].start_node == -1)
+                    return;
+                int r = hash(SuffixTree.EDGES[i].start_node,
+                        SuffixTree.T[SuffixTree.EDGES[i].first_char_index]);
+                if (i >= r && r > j)
+                    continue;
+                if (r > j && j > i)
+                    continue;
+                if (j > i && i >= r)
+                    continue;
+                break;
+            }
+            SuffixTree.EDGES[j] = SuffixTree.EDGES[i];
+        }
     }
 
     /**
@@ -77,7 +77,7 @@ public class Edge {
      * edges.
      */
     public Edge() {
-	start_node = -1;
+        start_node = -1;
     }
 
     /**
@@ -86,17 +86,17 @@ public class Edge {
      * also add a new node for its end point. The node entry is already present
      * in the Nodes[] array, and its suffix node is set to -1 by the default
      * Node() ctor, so I don't have to do anything with it at this point.
-     * 
+     *
      * @param init_first_char_index
      * @param init_last_char_index
      * @param parent_node
      */
     public Edge(int init_first_char_index, int init_last_char_index,
-	    int parent_node) {
-	this.first_char_index = init_first_char_index;
-	this.last_char_index = init_last_char_index;
-	this.start_node = parent_node;
-	this.end_node = Node.Count++;
+                int parent_node) {
+        this.first_char_index = init_first_char_index;
+        this.last_char_index = init_last_char_index;
+        this.start_node = parent_node;
+        this.end_node = Node.Count++;
     }
 
     /**
@@ -115,20 +115,20 @@ public class Edge {
      * The number of characters stolen from the original node and given to the
      * new node is equal to the number of characters in the suffix argument,
      * which is last - first + 1;
-     * 
+     *
      * @param s
      * @return
      */
     public int splitEdge(Suffix s) {
-	remove();
-	Edge new_edge = new Edge(first_char_index, first_char_index
-		+ s.last_char_index - s.first_char_index, s.origin_node);
-	new_edge.insert();
-	SuffixTree.NODES[new_edge.end_node].suffix_node = s.origin_node;
-	first_char_index += s.last_char_index - s.first_char_index + 1;
-	start_node = new_edge.end_node;
-	insert();
-	return new_edge.end_node;
+        remove();
+        Edge new_edge = new Edge(first_char_index, first_char_index
+                + s.last_char_index - s.first_char_index, s.origin_node);
+        new_edge.insert();
+        SuffixTree.NODES[new_edge.end_node].suffix_node = s.origin_node;
+        first_char_index += s.last_char_index - s.first_char_index + 1;
+        start_node = new_edge.end_node;
+        insert();
+        return new_edge.end_node;
     }
 
     /**
@@ -138,31 +138,31 @@ public class Edge {
      * the hash table, and returns a copy of it. If the edge isn't found, the
      * edge that is returned to the caller will have start_node set to -1, which
      * is the value used in the hash table to flag an unused entry.
-     * 
+     *
      * @param node
      * @param c
      * @return
      */
     public static Edge find(int node, int c) {
-	int i = hash(node, c);
-	for (;;) {
-	    if (SuffixTree.EDGES[i].start_node == node)
-		if (c == SuffixTree.T[SuffixTree.EDGES[i].first_char_index])
-		    return SuffixTree.EDGES[i];
-	    if (SuffixTree.EDGES[i].start_node == -1)
-		return SuffixTree.EDGES[i];
-	    i = ++i % SuffixTree.HASH_TABLE_SIZE;
-	}
+        int i = hash(node, c);
+        for (; ; ) {
+            if (SuffixTree.EDGES[i].start_node == node)
+                if (c == SuffixTree.T[SuffixTree.EDGES[i].first_char_index])
+                    return SuffixTree.EDGES[i];
+            if (SuffixTree.EDGES[i].start_node == -1)
+                return SuffixTree.EDGES[i];
+            i = ++i % SuffixTree.HASH_TABLE_SIZE;
+        }
     }
 
     /**
      * Edges are inserted into the hash table using this hashing function.
-     * 
+     *
      * @param node
      * @param c
      * @return
      */
     public static int hash(int node, int c) {
-	return ((node << 8) + c) % SuffixTree.HASH_TABLE_SIZE;
+        return ((node << 8) + c) % SuffixTree.HASH_TABLE_SIZE;
     }
 }

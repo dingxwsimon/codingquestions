@@ -17,29 +17,29 @@ public class TwoSum {
 
     // pass both
     public int[] twoSum(int[] numbers, int target) {
-	// Start typing your Java solution below
-	// DO NOT write main() function
-	int[] result = new int[2];
-	int size = numbers.length;
-	for (int i = 0; i < size; i++) {
-	    for (int j = i + 1; j < size; j++) {
-		if (numbers[i] + numbers[j] == target) {
-		    result[0] = i + 1;
-		    result[1] = j + 1;
-		    return result;
-		}
-	    }
-	}
-	return result;
+        // Start typing your Java solution below
+        // DO NOT write main() function
+        int[] result = new int[2];
+        int size = numbers.length;
+        for (int i = 0; i < size; i++) {
+            for (int j = i + 1; j < size; j++) {
+                if (numbers[i] + numbers[j] == target) {
+                    result[0] = i + 1;
+                    result[1] = j + 1;
+                    return result;
+                }
+            }
+        }
+        return result;
     }
 
     /**
      * @param args
      */
     public static void main(String[] args) {
-	// TODO Auto-generated method stub
-	System.out.println(Arrays.toString(Arrays.copyOfRange(new int[] { 0, 1,
-		2, 3, 4, 5, 6, 7 }, 2, 8)));
+        // TODO Auto-generated method stub
+        System.out.println(Arrays.toString(Arrays.copyOfRange(new int[]{0, 1,
+                2, 3, 4, 5, 6, 7}, 2, 8)));
     }
 
 }

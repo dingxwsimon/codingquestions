@@ -26,33 +26,33 @@ public class TurntoleftLeaf {
      */
 
     TreeNode FlipTree(TreeNode root) {
-	if (root == null)
-	    return null;
+        if (root == null)
+            return null;
 
-	// Working base condition
-	if (root.left == null && root.right == null) {
-	    return root;
-	}
+        // Working base condition
+        if (root.left == null && root.right == null) {
+            return root;
+        }
 
-	TreeNode newRoot = FlipTree(root.left);
+        TreeNode newRoot = FlipTree(root.left);
 
-	root.left.left = root.right;
-	root.left.right = root;
-	root.left = null;
-	root.right = null;
+        root.left.left = root.right;
+        root.left.right = root;
+        root.left = null;
+        root.right = null;
 
-	return newRoot;
+        return newRoot;
     }
 
     public static void main(String[] args) {
-	TreeNode root = new TreeNode(1);
-	root.left = new TreeNode(2);
-	root.right = new TreeNode(3);
-	root.left.left = new TreeNode(4);
-	root.left.right = new TreeNode(5);
-	System.out.println(root.toString());
-	TurntoleftLeaf b = new TurntoleftLeaf();
-	System.out.println(b.FlipTree(root).toString());
+        TreeNode root = new TreeNode(1);
+        root.left = new TreeNode(2);
+        root.right = new TreeNode(3);
+        root.left.left = new TreeNode(4);
+        root.left.right = new TreeNode(5);
+        System.out.println(root.toString());
+        TurntoleftLeaf b = new TurntoleftLeaf();
+        System.out.println(b.FlipTree(root).toString());
     }
 
 }

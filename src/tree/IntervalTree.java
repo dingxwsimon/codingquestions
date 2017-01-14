@@ -6,11 +6,9 @@ import java.util.List;
 /**
  * An Interval Tree is essentially a map from intervals to objects, which can be
  * queried for all data associated with a particular interval of time
- * 
+ *
+ * @param <Type> the type of objects to associate
  * @author Kevin Dolan
- * 
- * @param <Type>
- *            the type of objects to associate
  */
 public class IntervalTree<Type> {
 
@@ -23,124 +21,113 @@ public class IntervalTree<Type> {
      * Instantiate a new interval tree with no intervals
      */
     public IntervalTree() {
-	this.head = new IntervalNode<Type>();
-	this.intervalList = new ArrayList<Interval<Type>>();
-	this.inSync = true;
-	this.size = 0;
+        this.head = new IntervalNode<Type>();
+        this.intervalList = new ArrayList<Interval<Type>>();
+        this.inSync = true;
+        this.size = 0;
     }
 
     /**
      * Instantiate and build an interval tree with a preset list of intervals
-     * 
-     * @param intervalList
-     *            the list of intervals to use
+     *
+     * @param intervalList the list of intervals to use
      */
     public IntervalTree(List<Interval<Type>> intervalList) {
-	this.head = new IntervalNode<Type>(intervalList);
-	this.intervalList = new ArrayList<Interval<Type>>();
-	this.intervalList.addAll(intervalList);
-	this.inSync = true;
-	this.size = intervalList.size();
+        this.head = new IntervalNode<Type>(intervalList);
+        this.intervalList = new ArrayList<Interval<Type>>();
+        this.intervalList.addAll(intervalList);
+        this.inSync = true;
+        this.size = intervalList.size();
     }
 
     /**
      * Perform a stabbing query, returning the associated data Will rebuild the
      * tree if out of sync
-     * 
-     * @param time
-     *            the time to stab
+     *
+     * @param time the time to stab
      * @return the data associated with all intervals that contain time
      */
     public List<Type> get(long time) {
-	List<Interval<Type>> intervals = getIntervals(time);
-	List<Type> result = new ArrayList<Type>();
-	for (Interval<Type> interval : intervals)
-	    result.add(interval.getData());
-	return result;
+        List<Interval<Type>> intervals = getIntervals(time);
+        List<Type> result = new ArrayList<Type>();
+        for (Interval<Type> interval : intervals)
+            result.add(interval.getData());
+        return result;
     }
 
     /**
      * Perform a stabbing query, returning the interval objects Will rebuild the
      * tree if out of sync
-     * 
-     * @param time
-     *            the time to stab
+     *
+     * @param time the time to stab
      * @return all intervals that contain time
      */
     public List<Interval<Type>> getIntervals(long time) {
-	build();
-	return head.stab(time);
+        build();
+        return head.stab(time);
     }
 
     /**
      * Perform an interval query, returning the associated data Will rebuild the
      * tree if out of sync
-     * 
-     * @param start
-     *            the start of the interval to check
-     * @param end
-     *            the end of the interval to check
+     *
+     * @param start the start of the interval to check
+     * @param end   the end of the interval to check
      * @return the data associated with all intervals that intersect target
      */
     public List<Type> get(long start, long end) {
-	List<Interval<Type>> intervals = getIntervals(start, end);
-	List<Type> result = new ArrayList<Type>();
-	for (Interval<Type> interval : intervals)
-	    result.add(interval.getData());
-	return result;
+        List<Interval<Type>> intervals = getIntervals(start, end);
+        List<Type> result = new ArrayList<Type>();
+        for (Interval<Type> interval : intervals)
+            result.add(interval.getData());
+        return result;
     }
 
     /**
      * Perform an interval query, returning the interval objects Will rebuild
      * the tree if out of sync
-     * 
-     * @param start
-     *            the start of the interval to check
-     * @param end
-     *            the end of the interval to check
+     *
+     * @param start the start of the interval to check
+     * @param end   the end of the interval to check
      * @return all intervals that intersect target
      */
     public List<Interval<Type>> getIntervals(long start, long end) {
-	build();
-	return head.query(new Interval<Type>(start, end, null));
+        build();
+        return head.query(new Interval<Type>(start, end, null));
     }
 
     /**
      * Add an interval object to the interval tree's list Will not rebuild the
      * tree until the next query or call to build
-     * 
-     * @param interval
-     *            the interval object to add
+     *
+     * @param interval the interval object to add
      */
     public void addInterval(Interval<Type> interval) {
-	intervalList.add(interval);
-	inSync = false;
+        intervalList.add(interval);
+        inSync = false;
     }
 
     /**
      * Add an interval object to the interval tree's list Will not rebuild the
      * tree until the next query or call to build
-     * 
-     * @param begin
-     *            the beginning of the interval
-     * @param end
-     *            the end of the interval
-     * @param data
-     *            the data to associate
+     *
+     * @param begin the beginning of the interval
+     * @param end   the end of the interval
+     * @param data  the data to associate
      */
     public void addInterval(long begin, long end, Type data) {
-	intervalList.add(new Interval<Type>(begin, end, data));
-	inSync = false;
+        intervalList.add(new Interval<Type>(begin, end, data));
+        inSync = false;
     }
 
     /**
      * Determine whether this interval tree is currently a reflection of all
      * intervals in the interval list
-     * 
+     *
      * @return true if no changes have been made since the last build
      */
     public boolean inSync() {
-	return inSync;
+        return inSync;
     }
 
     /**
@@ -148,74 +135,74 @@ public class IntervalTree<Type> {
      * this is currently in sync
      */
     public void build() {
-	if (!inSync) {
-	    head = new IntervalNode<Type>(intervalList);
-	    inSync = true;
-	    size = intervalList.size();
-	}
+        if (!inSync) {
+            head = new IntervalNode<Type>(intervalList);
+            inSync = true;
+            size = intervalList.size();
+        }
     }
 
     /**
      * @return the number of entries in the currently built interval tree
      */
     public int currentSize() {
-	return size;
+        return size;
     }
 
     /**
      * @return the number of entries in the interval list, equal to .size() if
-     *         inSync()
+     * inSync()
      */
     public int listSize() {
-	return intervalList.size();
+        return intervalList.size();
     }
 
     @Override
     public String toString() {
-	return nodeString(head, 0);
+        return nodeString(head, 0);
     }
 
     private String nodeString(IntervalNode<Type> node, int level) {
-	if (node == null)
-	    return "";
+        if (node == null)
+            return "";
 
-	StringBuffer sb = new StringBuffer();
-	for (int i = 0; i < level; i++)
-	    sb.append("\t");
-	sb.append(node + "\n");
-	sb.append(nodeString(node.getLeft(), level + 1));
-	sb.append(nodeString(node.getRight(), level + 1));
-	return sb.toString();
+        StringBuffer sb = new StringBuffer();
+        for (int i = 0; i < level; i++)
+            sb.append("\t");
+        sb.append(node + "\n");
+        sb.append(nodeString(node.getLeft(), level + 1));
+        sb.append(nodeString(node.getRight(), level + 1));
+        return sb.toString();
     }
 
     public static void main(String[] args) {
-	IntervalTree<Integer> it = new IntervalTree<Integer>();
+        IntervalTree<Integer> it = new IntervalTree<Integer>();
 
-	it.addInterval(0L, 10L, 1);
-	it.addInterval(20L, 30L, 2);
-	it.addInterval(15L, 17L, 3);
-	it.addInterval(25L, 35L, 4);
+        it.addInterval(0L, 10L, 1);
+        it.addInterval(20L, 30L, 2);
+        it.addInterval(15L, 17L, 3);
+        it.addInterval(25L, 35L, 4);
 
-	List<Integer> result1 = it.get(5L);
-	List<Integer> result2 = it.get(10L);
-	List<Integer> result3 = it.get(29L);
-	List<Integer> result4 = it.get(5L, 15L);
+        List<Integer> result1 = it.get(5L);
+        List<Integer> result2 = it.get(10L);
+        List<Integer> result3 = it.get(29L);
+        List<Integer> result4 = it.get(5L, 15L);
 
-	System.out.println("Intervals that contain 5L:");
-	for (int r : result1)
-	    System.out.println(r);
+        System.out.println("Intervals that contain 5L:");
+        for (int r : result1)
+            System.out.println(r);
 
-	System.out.println("Intervals that contain 10L:");
-	for (int r : result2)
-	    System.out.println(r);
+        System.out.println("Intervals that contain 10L:");
+        for (int r : result2)
+            System.out.println(r);
 
-	System.out.println("Intervals that contain 29L:");
-	for (int r : result3)
-	    System.out.println(r);
+        System.out.println("Intervals that contain 29L:");
+        for (int r : result3)
+            System.out.println(r);
 
-	System.out.println("Intervals that intersect (5L,15L):");
-	for (int r : result4)
-	    System.out.println(r);
+        System.out.println("Intervals that intersect (5L,15L):");
+        for (int r : result4)
+            System.out.println(r);
 
     }
 

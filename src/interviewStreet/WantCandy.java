@@ -28,42 +28,42 @@ public class WantCandy {
     // P(0, numW) = 1;
     // The time complexity of the method is O(numR*numW)
     public static double getProb1(int numR, int numW) {
-	if (numW == 0)
-	    return 0.0;
-	else if (numR == 0)
-	    return 1.0;
-	double[][] resultMatrix = new double[numR + 1][numW + 1];
-	for (int i = 0; i < numW + 1; i++) {
-	    resultMatrix[0][i] = 1;
-	}
-	for (int i = 0; i < numR + 1; i++) {
-	    resultMatrix[i][0] = 0;
-	}
-	int min = Math.min(numR, numW);
-	for (int i = 1; i < min + 1; i++) {
-	    double doubleI = (double) i;
-	    for (int j = i; j < numW + 1; j++) {
-		double doubleJ = (double) j;
-		resultMatrix[i][j] = Math.pow(doubleI, 2)
-			/ Math.pow(doubleI + doubleJ, 2)
-			* resultMatrix[i - 1][j]
-			+ (Math.pow(doubleJ, 2) + 2 * doubleI * doubleJ)
-			/ Math.pow(doubleI + doubleJ, 2)
-			* resultMatrix[i][j - 1];
-	    }
-	    for (int j = i; j < numR + 1; j++) {
-		double doubleJ = (double) j;
-		resultMatrix[j][i] = Math.pow(doubleJ, 2)
-			/ Math.pow(doubleJ + doubleI, 2)
-			* resultMatrix[j - 1][i]
-			+ (Math.pow(doubleI, 2) + 2 * doubleI * doubleJ)
-			/ Math.pow(doubleJ + doubleI, 2)
-			* resultMatrix[j][i - 1];
-	    }
+        if (numW == 0)
+            return 0.0;
+        else if (numR == 0)
+            return 1.0;
+        double[][] resultMatrix = new double[numR + 1][numW + 1];
+        for (int i = 0; i < numW + 1; i++) {
+            resultMatrix[0][i] = 1;
+        }
+        for (int i = 0; i < numR + 1; i++) {
+            resultMatrix[i][0] = 0;
+        }
+        int min = Math.min(numR, numW);
+        for (int i = 1; i < min + 1; i++) {
+            double doubleI = (double) i;
+            for (int j = i; j < numW + 1; j++) {
+                double doubleJ = (double) j;
+                resultMatrix[i][j] = Math.pow(doubleI, 2)
+                        / Math.pow(doubleI + doubleJ, 2)
+                        * resultMatrix[i - 1][j]
+                        + (Math.pow(doubleJ, 2) + 2 * doubleI * doubleJ)
+                        / Math.pow(doubleI + doubleJ, 2)
+                        * resultMatrix[i][j - 1];
+            }
+            for (int j = i; j < numR + 1; j++) {
+                double doubleJ = (double) j;
+                resultMatrix[j][i] = Math.pow(doubleJ, 2)
+                        / Math.pow(doubleJ + doubleI, 2)
+                        * resultMatrix[j - 1][i]
+                        + (Math.pow(doubleI, 2) + 2 * doubleI * doubleJ)
+                        / Math.pow(doubleJ + doubleI, 2)
+                        * resultMatrix[j][i - 1];
+            }
 
-	}
+        }
 
-	return resultMatrix[numR][numW];
+        return resultMatrix[numR][numW];
     }
 
     // Of course if we use BigDecimal instead of double, we could still get the
@@ -77,17 +77,17 @@ public class WantCandy {
     // object
     // BigDecimal and the time complexity will be constant O(1)
     public static BigDecimal getProbSimple(int numR, int numW) {
-	MathContext mc = new MathContext(60);
-	BigDecimal dbR = new BigDecimal((double) numR, mc);
-	BigDecimal dbW = new BigDecimal((double) numW, mc);
-	return dbW.divide(
-		dbR.add(new BigDecimal(1.0D, mc), mc).multiply(dbR.add(dbW)),
-		mc);
+        MathContext mc = new MathContext(60);
+        BigDecimal dbR = new BigDecimal((double) numR, mc);
+        BigDecimal dbW = new BigDecimal((double) numW, mc);
+        return dbW.divide(
+                dbR.add(new BigDecimal(1.0D, mc), mc).multiply(dbR.add(dbW)),
+                mc);
     }
 
     public static void main(String[] args) {
-	System.out.println(getProb1(10, 90));
-	System.out.println(getProbSimple(10, 90));
+        System.out.println(getProb1(10, 90));
+        System.out.println(getProbSimple(10, 90));
     }
 
 }

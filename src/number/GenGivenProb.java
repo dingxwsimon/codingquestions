@@ -3,31 +3,31 @@ package number;
 import java.util.Random;
 
 public class GenGivenProb {/*
-			    * ¸ø¶¨Ò»¸öËæ»úº¯Êı¿ÉÒÔ°´ÕÕ0.5µÄ¸ÅÂÊ·µ»Øtrue¡£ ÒªÇóÊµÏÖÒ»¸öº¯ÊıËæ»ú·µ»ØÈÎÒâ¸ÅÂÊµÄtrue¡£
+                * ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô°ï¿½ï¿½ï¿½0.5ï¿½Ä¸ï¿½ï¿½Ê·ï¿½ï¿½ï¿½trueï¿½ï¿½ Òªï¿½ï¿½Êµï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Êµï¿½trueï¿½ï¿½
 			    */
 
     boolean RNGwithGivenProb(double p, boolean expected) {
-	if (p < 0.5)
-	    return RNGwithGivenProb(1 - p, !expected);
-	if (RNG() == expected)
-	    return expected;
-	else
-	    return RNGwithGivenProb((p - 0.5) * 2, expected);
+        if (p < 0.5)
+            return RNGwithGivenProb(1 - p, !expected);
+        if (RNG() == expected)
+            return expected;
+        else
+            return RNGwithGivenProb((p - 0.5) * 2, expected);
     }
 
     boolean RNG() {
-	int min = 1;
-	int max = 10;
-	Random rand = new Random();
-	int randomNum = rand.nextInt((max - min) + 1) + min;
-	if (randomNum < 5)
-	    return true;
-	else
-	    return false;
+        int min = 1;
+        int max = 10;
+        Random rand = new Random();
+        int randomNum = rand.nextInt((max - min) + 1) + min;
+        if (randomNum < 5)
+            return true;
+        else
+            return false;
     }
 
     public static void main(String[] args) {
-	// TODO Auto-generated method stub
+        // TODO Auto-generated method stub
 
     }
 

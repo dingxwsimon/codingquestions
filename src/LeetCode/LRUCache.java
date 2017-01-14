@@ -35,80 +35,80 @@ public class LRUCache {
      * public void set(int key, int value) { cache.put(key, value); }
      */
     public LRUCache(int capacity) {
-	mCapacity = capacity;
+        mCapacity = capacity;
     }
 
     public int get(int key) {
 
-	if (!mKeyValueNodeMap.containsKey(key))
-	    return -1;
+        if (!mKeyValueNodeMap.containsKey(key))
+            return -1;
 
-	Node node = mKeyValueNodeMap.get(key);
+        Node node = mKeyValueNodeMap.get(key);
 
-	// move the node to the end of link list if it's not the end
-	Node prevNode = node.prev;
-	Node nextNode = node.next;
-	if (nextNode != null) {
-	    if (prevNode == null) { // the head node
-		mHead = nextNode;
-	    } else {
-		prevNode.next = nextNode;
-	    }
-	    nextNode.prev = prevNode;
+        // move the node to the end of link list if it's not the end
+        Node prevNode = node.prev;
+        Node nextNode = node.next;
+        if (nextNode != null) {
+            if (prevNode == null) { // the head node
+                mHead = nextNode;
+            } else {
+                prevNode.next = nextNode;
+            }
+            nextNode.prev = prevNode;
 
-	    node.prev = mTail;
-	    node.next = null;
-	    mTail.next = node;
-	    mTail = node;
-	}
+            node.prev = mTail;
+            node.next = null;
+            mTail.next = node;
+            mTail = node;
+        }
 
-	return node.val;
+        return node.val;
     }
 
     public void set(int key, int value) {
 
-	if (mKeyValueNodeMap.containsKey(key)) {
-	    get(key); // only to move it to the tail
-	    mKeyValueNodeMap.get(key).val = value;
-	} else {
-	    Node node = new Node(key, value);
+        if (mKeyValueNodeMap.containsKey(key)) {
+            get(key); // only to move it to the tail
+            mKeyValueNodeMap.get(key).val = value;
+        } else {
+            Node node = new Node(key, value);
 
-	    // invalidate the LRU item, meaning remove the head element
-	    if (mKeyValueNodeMap.size() >= mCapacity) {
-		if (mHead != null) {
-		    Node oldHead = mHead;
-		    mHead = mHead.next;
-		    oldHead.next = null;
-		    if (mHead != null) // it could be only one item
-			mHead.prev = null;
-		    mKeyValueNodeMap.remove(oldHead.key);
-		}
-	    }
+            // invalidate the LRU item, meaning remove the head element
+            if (mKeyValueNodeMap.size() >= mCapacity) {
+                if (mHead != null) {
+                    Node oldHead = mHead;
+                    mHead = mHead.next;
+                    oldHead.next = null;
+                    if (mHead != null) // it could be only one item
+                        mHead.prev = null;
+                    mKeyValueNodeMap.remove(oldHead.key);
+                }
+            }
 
-	    // insert the new value
-	    if (mHead == null) {
-		mHead = node;
-		mTail = node;
-	    } else {
-		mTail.next = node;
-		node.prev = mTail;
-		mTail = node;
-	    }
-	    mKeyValueNodeMap.put(key, node);
-	}
+            // insert the new value
+            if (mHead == null) {
+                mHead = node;
+                mTail = node;
+            } else {
+                mTail.next = node;
+                node.prev = mTail;
+                mTail = node;
+            }
+            mKeyValueNodeMap.put(key, node);
+        }
     }
 
     private class Node {
 
-	int key;
-	int val;
-	Node prev = null;
-	Node next = null;
+        int key;
+        int val;
+        Node prev = null;
+        Node next = null;
 
-	Node(int k, int v) {
-	    key = k;
-	    val = v;
-	}
+        Node(int k, int v) {
+            key = k;
+            val = v;
+        }
     }
 
     HashMap<Integer, Node> mKeyValueNodeMap = new HashMap<Integer, Node>();
@@ -120,7 +120,7 @@ public class LRUCache {
      * @param args
      */
     public static void main(String[] args) {
-	// TODO Auto-generated method stub
+        // TODO Auto-generated method stub
 
     }
 

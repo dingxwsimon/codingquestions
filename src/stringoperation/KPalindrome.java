@@ -30,34 +30,34 @@ public class KPalindrome {
      */
 
     int ModifiedEditDistance(String a, String b, int k) {
-	int i, j, n = a.length();
-	// for simplicity. we should use only a window of size 2*k+1 or
-	// dp[2][MAX] and alternate rows. only need row i-1
-	int[][] dp = new int[n + 1][n + 1];
-	for (i = 0; i < n; i++)
-	    dp[i][0] = dp[0][i] = i;
+        int i, j, n = a.length();
+        // for simplicity. we should use only a window of size 2*k+1 or
+        // dp[2][MAX] and alternate rows. only need row i-1
+        int[][] dp = new int[n + 1][n + 1];
+        for (i = 0; i < n; i++)
+            dp[i][0] = dp[0][i] = i;
 
-	for (i = 1; i <= n; i++) {
-	    int from = Math.max(1, i - k), to = Math.min(i + k, n);
-	    for (j = from; j <= to; j++) {
-		if (a.charAt(i - 1) == b.charAt(j - 1)) // same character
-		    dp[i][j] = dp[i - 1][j - 1];
-		// note that we don't allow letter substitutions
+        for (i = 1; i <= n; i++) {
+            int from = Math.max(1, i - k), to = Math.min(i + k, n);
+            for (j = from; j <= to; j++) {
+                if (a.charAt(i - 1) == b.charAt(j - 1)) // same character
+                    dp[i][j] = dp[i - 1][j - 1];
+                // note that we don't allow letter substitutions
 
-		dp[i][j] = Math.min(dp[i][j], 1 + dp[i][j - 1]); // delete
-								 // character j
-		dp[i][j] = Math.min(dp[i][j], 1 + dp[i - 1][j]); // insert
-								 // character i
-	    }
-	}
-	return dp[n][n];
+                dp[i][j] = Math.min(dp[i][j], 1 + dp[i][j - 1]); // delete
+                // character j
+                dp[i][j] = Math.min(dp[i][j], 1 + dp[i - 1][j]); // insert
+                // character i
+            }
+        }
+        return dp[n][n];
     }
 
     /**
      * @param args
      */
     public static void main(String[] args) {
-	// TODO Auto-generated method stub
+        // TODO Auto-generated method stub
 
     }
 

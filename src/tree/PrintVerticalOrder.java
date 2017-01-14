@@ -16,50 +16,50 @@ public class PrintVerticalOrder {
      * HashMap.
      */
     public List<List<Integer>> printVertically(TreeNode root) {
-	List<List<Integer>> ans = new ArrayList<List<Integer>>();
+        List<List<Integer>> ans = new ArrayList<List<Integer>>();
 
-	// 1. find the range of left bound and right bound
-	int[] range = new int[2];
-	findRange(root, range, 0);
+        // 1. find the range of left bound and right bound
+        int[] range = new int[2];
+        findRange(root, range, 0);
 
-	// 2. calculate number of columns in the result
-	int rootIndex = 0 - range[0];
-	int columns = range[1] - range[0] + 1;
-	for (int i = 0; i < columns; i++) {
-	    ans.add(new ArrayList<Integer>());
-	}
+        // 2. calculate number of columns in the result
+        int rootIndex = 0 - range[0];
+        int columns = range[1] - range[0] + 1;
+        for (int i = 0; i < columns; i++) {
+            ans.add(new ArrayList<Integer>());
+        }
 
-	// 3. fill in vertically in a recursive manner
-	fillNode(ans, root, rootIndex);
+        // 3. fill in vertically in a recursive manner
+        fillNode(ans, root, rootIndex);
 
-	return ans;
+        return ans;
     }
 
     private void fillNode(List<List<Integer>> ans, TreeNode node, int index) {
-	if (node == null) {
-	    return;
-	}
-	ans.get(index).add(node.val);
-	fillNode(ans, node.left, index - 1);
-	fillNode(ans, node.right, index + 1);
+        if (node == null) {
+            return;
+        }
+        ans.get(index).add(node.val);
+        fillNode(ans, node.left, index - 1);
+        fillNode(ans, node.right, index + 1);
     }
 
     private void findRange(TreeNode node, int[] range, int position) {
-	if (node == null) {
-	    return;
-	}
-	if (position < range[0]) {
-	    range[0] = position;
-	}
-	if (position > range[1]) {
-	    range[1] = position;
-	}
-	findRange(node.left, range, position - 1);
-	findRange(node.right, range, position + 1);
+        if (node == null) {
+            return;
+        }
+        if (position < range[0]) {
+            range[0] = position;
+        }
+        if (position > range[1]) {
+            range[1] = position;
+        }
+        findRange(node.left, range, position - 1);
+        findRange(node.right, range, position + 1);
     }
 
     public static void main(String[] args) {
-	// TODO Auto-generated method stub
+        // TODO Auto-generated method stub
 
     }
 

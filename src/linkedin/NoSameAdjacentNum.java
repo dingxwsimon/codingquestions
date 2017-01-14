@@ -11,12 +11,12 @@ public class NoSameAdjacentNum {
      */
 
     public static void main(String[] args) {
-	int[] n = { 2, 2, 2, 2 };
-	System.out.println(n);
+        int[] n = {2, 2, 2, 2};
+        System.out.println(n);
     }
 
     public static int generate(int[] n) {
-	return -1;
+        return -1;
     }
 
 }

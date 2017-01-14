@@ -10,56 +10,56 @@ public class QueryCounter {
     long last = 0;
 
     long currSecond() {
-	return System.currentTimeMillis() / 1000;
+        return System.currentTimeMillis() / 1000;
     }
 
     long clear() {
-	long curr = currSecond();
-	if (curr > last) {
-	    if (curr - last >= SIZE) {
-		hour = 0;
-		minute = 0;
-		Arrays.fill(arr, 0);
-	    } else {
-		if (curr - last >= 60) {
-		    minute = 0;
-		} else {
-		    for (long i = last - 60 + 1; i <= curr - 60; i++) {
-			minute -= arr[(int) (i % SIZE)];
-		    }
-		}
+        long curr = currSecond();
+        if (curr > last) {
+            if (curr - last >= SIZE) {
+                hour = 0;
+                minute = 0;
+                Arrays.fill(arr, 0);
+            } else {
+                if (curr - last >= 60) {
+                    minute = 0;
+                } else {
+                    for (long i = last - 60 + 1; i <= curr - 60; i++) {
+                        minute -= arr[(int) (i % SIZE)];
+                    }
+                }
 
-		for (long i = last + 1; i <= curr; i++) {
-		    int p = (int) (i % SIZE);
-		    hour -= arr[p];
-		    arr[p] = 0;
-		}
-	    }
-	    last = curr;
-	}
+                for (long i = last + 1; i <= curr; i++) {
+                    int p = (int) (i % SIZE);
+                    hour -= arr[p];
+                    arr[p] = 0;
+                }
+            }
+            last = curr;
+        }
 
-	return curr;
+        return curr;
     }
 
     void request() {
-	long curr = clear();
-	arr[(int) (curr % SIZE)]++;
-	hour++;
-	minute++;
+        long curr = clear();
+        arr[(int) (curr % SIZE)]++;
+        hour++;
+        minute++;
     }
 
     int lastSecond() {
-	long curr = clear();
-	return arr[(int) (curr % SIZE)];
+        long curr = clear();
+        return arr[(int) (curr % SIZE)];
     }
 
     int lastMinute() {
-	clear();
-	return minute;
+        clear();
+        return minute;
     }
 
     int lastHour() {
-	clear();
-	return hour;
+        clear();
+        return hour;
     }
 }

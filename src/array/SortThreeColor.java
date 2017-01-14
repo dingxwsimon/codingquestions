@@ -18,108 +18,108 @@ public class SortThreeColor {
 
     // worked!!!!
     public void sortColors(int[] A) {
-	int n = A.length;
-	if (n < 2)
-	    return;
-	int start = 0;
-	int end = n - 1;
+        int n = A.length;
+        if (n < 2)
+            return;
+        int start = 0;
+        int end = n - 1;
 
-	int i = 0;
-	while (start <= n - 1 && A[start] == 0)
-	    start++;
-	while (end >= 0 && A[end] == 2)
-	    end--;
+        int i = 0;
+        while (start <= n - 1 && A[start] == 0)
+            start++;
+        while (end >= 0 && A[end] == 2)
+            end--;
 
-	while (i <= end && start < end) {
-	    if (i < start)
-		i = start;
-	    if (A[i] == 0) {
-		swap(A, i, start);
-		start++;
-	    } else if (A[i] == 2) {
-		swap(A, i, end);
-		end--;
-	    } else {
-		i++;
-	    }
-	    while (start <= n - 1 && A[start] == 0)
-		start++;
-	    while (end >= 0 && A[end] == 2)
-		end--;
-	}
+        while (i <= end && start < end) {
+            if (i < start)
+                i = start;
+            if (A[i] == 0) {
+                swap(A, i, start);
+                start++;
+            } else if (A[i] == 2) {
+                swap(A, i, end);
+                end--;
+            } else {
+                i++;
+            }
+            while (start <= n - 1 && A[start] == 0)
+                start++;
+            while (end >= 0 && A[end] == 2)
+                end--;
+        }
     }
 
     public void swap(int[] A, int i, int j) {
-	int temp = A[i];
-	A[i] = A[j];
-	A[j] = temp;
+        int temp = A[i];
+        A[i] = A[j];
+        A[j] = temp;
     }
 
     // work under C++
     public void sort(int[] A) {
-	int n = A.length;
-	if (n <= 1)
-	    return;
-	int zeroptr = 0;
-	int twoptr = n - 1;
-	int i = 0;
-	while (A[zeroptr] == 0)
-	    zeroptr++;
-	while (A[twoptr] == 2)
-	    twoptr--;
-	while (zeroptr <= twoptr && i <= twoptr) {
-	    if (i < zeroptr)
-		i = zeroptr;
-	    switch (A[i]) {
-	    case 0:
-		swap(A, zeroptr, i);
-		break;
-	    case 1:
-		i++;
-		break;
-	    case 2:
-		swap(A, twoptr, i);
-		break;
-	    default:
-		break;
-	    }
-	    while (A[zeroptr] == 0)
-		zeroptr++;
-	    while (A[twoptr] == 2)
-		twoptr--;
-	}
+        int n = A.length;
+        if (n <= 1)
+            return;
+        int zeroptr = 0;
+        int twoptr = n - 1;
+        int i = 0;
+        while (A[zeroptr] == 0)
+            zeroptr++;
+        while (A[twoptr] == 2)
+            twoptr--;
+        while (zeroptr <= twoptr && i <= twoptr) {
+            if (i < zeroptr)
+                i = zeroptr;
+            switch (A[i]) {
+                case 0:
+                    swap(A, zeroptr, i);
+                    break;
+                case 1:
+                    i++;
+                    break;
+                case 2:
+                    swap(A, twoptr, i);
+                    break;
+                default:
+                    break;
+            }
+            while (A[zeroptr] == 0)
+                zeroptr++;
+            while (A[twoptr] == 2)
+                twoptr--;
+        }
     }
 
     // correct
     public void sort1(int[] A) {
-	int[] count = new int[3];
-	for (int i = 0; i < 3; i++) {
-	    count[i] = 0;
+        int[] count = new int[3];
+        for (int i = 0; i < 3; i++) {
+            count[i] = 0;
 
-	}
+        }
 
-	for (int i = 0; i < A.length; i++) {
-	    count[A[i]]++;
-	}
-	int start = 0;
-	for (int i = 0; i < 3; i++) {
-	    for (int j = start; j < start + count[i]; j++) {
-		A[j] = i;
-	    }
-	    start += count[i];
-	}
-	System.out.println(Arrays.toString(A));
+        for (int i = 0; i < A.length; i++) {
+            count[A[i]]++;
+        }
+        int start = 0;
+        for (int i = 0; i < 3; i++) {
+            for (int j = start; j < start + count[i]; j++) {
+                A[j] = i;
+            }
+            start += count[i];
+        }
+        System.out.println(Arrays.toString(A));
     }
 
     /**
      * @param args
      */
     public static void main(String[] args) {
-	// TODO Auto-generated method stub
-	int[] A = new int[] { 0 };
-	SortThreeColor s = new SortThreeColor();
-	s.sortColors(A);
-	System.out.println(Arrays.toString(A));
+        // TODO Auto-generated method stub
+        int[] A = new int[]{0};
+        SortThreeColor s = new SortThreeColor();
+        s.sortColors(A);
+        System.out.println(Arrays.toString(A));
     }
 
 }

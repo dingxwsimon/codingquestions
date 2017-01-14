@@ -9,19 +9,19 @@ public class GreaterSumTree {
     int sum = 0;
 
     public void changeTree(Node root) {
-	if (root != null) {
-	    changeTree(root.right);
-	    root.value = sum + root.value;
-	    sum = root.value;
-	    changeTree(root.left);
-	}
+        if (root != null) {
+            changeTree(root.right);
+            root.value = sum + root.value;
+            sum = root.value;
+            changeTree(root.left);
+        }
     }
 
     /**
      * @param args
      */
     public static void main(String[] args) {
-	// TODO Auto-generated method stub
+        // TODO Auto-generated method stub
 
     }
 

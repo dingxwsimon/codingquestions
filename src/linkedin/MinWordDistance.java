@@ -13,22 +13,22 @@ public class MinWordDistance {
      */
 
     static int Distance(String[] words, String word1, String word2) {
-	int min = words.length;
-	int last1 = -1;
-	int last2 = -1;
+        int min = words.length;
+        int last1 = -1;
+        int last2 = -1;
 
-	for (int i = 0; i < words.length; i++) {
-	    if (words[i] == word1)
-		last1 = i;
-	    if (words[i] == word2)
-		last2 = i;
+        for (int i = 0; i < words.length; i++) {
+            if (words[i] == word1)
+                last1 = i;
+            if (words[i] == word2)
+                last2 = i;
 
-	    if ((words[i] == word1 || words[i] == word2)
-		    && (last1 != -1 && last2 != -1)) {
-		int newDist = Math.abs(last1 - last2);
-		min = Math.min(newDist, min);
-	    }
-	}
-	return min;
+            if ((words[i] == word1 || words[i] == word2)
+                    && (last1 != -1 && last2 != -1)) {
+                int newDist = Math.abs(last1 - last2);
+                min = Math.min(newDist, min);
+            }
+        }
+        return min;
     }
 }

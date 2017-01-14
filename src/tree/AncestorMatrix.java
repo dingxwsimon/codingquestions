@@ -7,18 +7,18 @@ public class AncestorMatrix {
 
     public static void setArray(LinkedList<Integer> arr, Node node) {
 
-	if (node == null)
-	    return;
+        if (node == null)
+            return;
 
-	arr.addLast(node.value);
+        arr.addLast(node.value);
 
-	setArray(arr, node.left);
-	setArray(arr, node.right);
+        setArray(arr, node.left);
+        setArray(arr, node.right);
 
-	arr.removeLast();
+        arr.removeLast();
 
-	for (int i : arr)
-	    a[i][node.value] = 1;
+        for (int i : arr)
+            a[i][node.value] = 1;
 
     }
 
@@ -26,7 +26,7 @@ public class AncestorMatrix {
      * @param args
      */
     public static void main(String[] args) {
-	// TODO Auto-generated method stub
+        // TODO Auto-generated method stub
 
     }
 

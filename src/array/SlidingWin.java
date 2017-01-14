@@ -11,72 +11,72 @@ public class SlidingWin {
      */
 
     public static void maxSlidingWindow(int A[], int n, int w, int B[]) {
-	LinkedList<Integer> Q = new LinkedList<Integer>();
-	for (int i = 0; i < w; i++) {
-	    while (!Q.isEmpty() && A[i] >= A[Q.getLast()])
-		Q.pollLast();
-	    Q.addLast(i);
-	}
-	for (int i = w; i < n; i++) {
-	    B[i - w] = A[Q.getFirst()];
-	    while (!Q.isEmpty() && A[i] >= A[Q.getLast()])
-		Q.pollLast();
-	    while (!Q.isEmpty() && Q.getFirst() <= i - w)
-		Q.pollFirst();
-	    Q.addLast(i);
-	}
-	B[n - w] = A[Q.getFirst()];
+        LinkedList<Integer> Q = new LinkedList<Integer>();
+        for (int i = 0; i < w; i++) {
+            while (!Q.isEmpty() && A[i] >= A[Q.getLast()])
+                Q.pollLast();
+            Q.addLast(i);
+        }
+        for (int i = w; i < n; i++) {
+            B[i - w] = A[Q.getFirst()];
+            while (!Q.isEmpty() && A[i] >= A[Q.getLast()])
+                Q.pollLast();
+            while (!Q.isEmpty() && Q.getFirst() <= i - w)
+                Q.pollFirst();
+            Q.addLast(i);
+        }
+        B[n - w] = A[Q.getFirst()];
     }
 
     // basically two methods are the same
     public static int[] getMaxInSlideWindow(int[] A, Integer w) {
-	// invalid input
-	if (A == null || w <= 0 || A.length - w + 1 <= 0)
-	    return null;
+        // invalid input
+        if (A == null || w <= 0 || A.length - w + 1 <= 0)
+            return null;
 
-	int[] B = new int[A.length - w + 1];
+        int[] B = new int[A.length - w + 1];
 
-	// auxiliary queue that is sorted in descending order
-	LinkedList<Integer> q = new LinkedList<Integer>();
+        // auxiliary queue that is sorted in descending order
+        LinkedList<Integer> q = new LinkedList<Integer>();
 
-	for (int i = 0; i < A.length; i++) {
-	    // enqueue. Remove those smaller values
-	    int data = A[i];
-	    // if the A[i] is violating q's sequence, then remove all the
-	    // smaller
-	    // element in q
-	    while (!q.isEmpty() && q.getLast() < data) {
-		q.removeLast();
-	    }
-	    q.addLast(data);
+        for (int i = 0; i < A.length; i++) {
+            // enqueue. Remove those smaller values
+            int data = A[i];
+            // if the A[i] is violating q's sequence, then remove all the
+            // smaller
+            // element in q
+            while (!q.isEmpty() && q.getLast() < data) {
+                q.removeLast();
+            }
+            q.addLast(data);
 
-	    if (i < w - 1) {
-		continue;
-	    }
+            if (i < w - 1) {
+                continue;
+            }
 
-	    // dequeue. If the current number is the maximum. Also remove it
-	    // from the queue
-	    Integer max = q.getFirst();
-	    B[i - w + 1] = max;
-	    if (A[i - w + 1] == max) {
-		q.removeFirst();
-	    }
-	}
+            // dequeue. If the current number is the maximum. Also remove it
+            // from the queue
+            Integer max = q.getFirst();
+            B[i - w + 1] = max;
+            if (A[i - w + 1] == max) {
+                q.removeFirst();
+            }
+        }
 
-	return B;
+        return B;
     }
 
     /**
      * @param args
      */
     public static void main(String[] args) {
-	// TODO Auto-generated method stub
-	int[] in = new int[] { 4, 3, 2, 1, 5, 7, 6, 8, 9 };
-	int[] out = new int[in.length];
-	maxSlidingWindow(in, 9, 3, out);
-	System.out.println(Arrays.toString(out));
-	System.out.println(Arrays.toString(getMaxInSlideWindow(in, 3)));
-	System.out.println("");
+        // TODO Auto-generated method stub
+        int[] in = new int[]{4, 3, 2, 1, 5, 7, 6, 8, 9};
+        int[] out = new int[in.length];
+        maxSlidingWindow(in, 9, 3, out);
+        System.out.println(Arrays.toString(out));
+        System.out.println(Arrays.toString(getMaxInSlideWindow(in, 3)));
+        System.out.println("");
     }
 
 }

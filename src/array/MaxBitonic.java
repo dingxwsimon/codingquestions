@@ -18,33 +18,33 @@ public class MaxBitonic {
      */
 
     public static int botonic(int[] array) {
-	int i = 0;
-	int n = array.length;
-	int[] incr = new int[n];
-	int[] decr = new int[n];
-	int max = 0;
+        int i = 0;
+        int n = array.length;
+        int[] incr = new int[n];
+        int[] decr = new int[n];
+        int max = 0;
 
-	incr[0] = 1;
-	decr[n - 1] = 1;
-	for (i = 1; i < n; i++) {
-	    if (array[i] > array[i - 1])
-		incr[i] = incr[i - 1] + 1;
-	    else
-		incr[i] = 1;
-	}
-	for (i = n - 2; i >= 0; i--) {
-	    if (array[i] > array[i + 1])
-		decr[i] = decr[i + 1] + 1;
-	    else
-		decr[i] = 1;
-	}
+        incr[0] = 1;
+        decr[n - 1] = 1;
+        for (i = 1; i < n; i++) {
+            if (array[i] > array[i - 1])
+                incr[i] = incr[i - 1] + 1;
+            else
+                incr[i] = 1;
+        }
+        for (i = n - 2; i >= 0; i--) {
+            if (array[i] > array[i + 1])
+                decr[i] = decr[i + 1] + 1;
+            else
+                decr[i] = 1;
+        }
 
-	max = incr[0] + decr[0] - 1;
-	for (i = 1; i < n; i++) {
-	    if (incr[i] + decr[i] - 1 > max)
-		max = incr[i] + decr[i] - 1;
-	}
-	return max;
+        max = incr[0] + decr[0] - 1;
+        for (i = 1; i < n; i++) {
+            if (incr[i] + decr[i] - 1 > max)
+                max = incr[i] + decr[i] - 1;
+        }
+        return max;
 
     }
 
@@ -52,9 +52,9 @@ public class MaxBitonic {
      * @param args
      */
     public static void main(String[] args) {
-	// TODO Auto-generated method stub
-	int[] arr = { 12, 4, 78, 90, 45, 23 };
-	System.out.println(botonic(arr));
+        // TODO Auto-generated method stub
+        int[] arr = {12, 4, 78, 90, 45, 23};
+        System.out.println(botonic(arr));
     }
 
 }

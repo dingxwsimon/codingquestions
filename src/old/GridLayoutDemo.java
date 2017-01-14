@@ -1,20 +1,21 @@
 /**
  * @(#) GridLayoutDemo.java Apr 3, 2010 9:34:31 PM
- *      Copyright (C) 2009 GeeYee Inc. 60606, Chicago, IL, USA
- *      All right reserved
+ * Copyright (C) 2009 GeeYee Inc. 60606, Chicago, IL, USA
+ * All right reserved
  */
 package old;
 
 // Fig. 11.44: GridLayoutDemo.java
 // Testing GridLayoutFrame.
+
 import javax.swing.JFrame;
 
 public class GridLayoutDemo {
     public static void main(String args[]) {
-	GridLayoutFrame gridLayoutFrame = new GridLayoutFrame();
-	gridLayoutFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	gridLayoutFrame.setSize(300, 200); // set frame size
-	gridLayoutFrame.setVisible(true); // display frame
+        GridLayoutFrame gridLayoutFrame = new GridLayoutFrame();
+        gridLayoutFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        gridLayoutFrame.setSize(300, 200); // set frame size
+        gridLayoutFrame.setVisible(true); // display frame
     } // end main
 } // end class GridLayoutDemo
 

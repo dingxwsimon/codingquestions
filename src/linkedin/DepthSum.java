@@ -13,48 +13,48 @@ public class DepthSum {
      */
 
     public interface NestedInteger {
-	/**
-	 * @return true if this NestedInteger holds a single integer, rather
-	 *         than a nested list
-	 */
-	boolean isInteger();
+        /**
+         * @return true if this NestedInteger holds a single integer, rather
+         * than a nested list
+         */
+        boolean isInteger();
 
-	/**
-	 * @return the single integer that this NestedInteger holds, if it holds
-	 *         a single integer Return null if this NestedInteger holds a
-	 *         nested list
-	 */
-	Integer getInteger();
+        /**
+         * @return the single integer that this NestedInteger holds, if it holds
+         * a single integer Return null if this NestedInteger holds a
+         * nested list
+         */
+        Integer getInteger();
 
-	/**
-	 * @return the nested list that this NestedInteger holds, if it holds a
-	 *         nested list Return null if this NestedInteger holds a single
-	 *         integer
-	 */
-	List<NestedInteger> getList();
+        /**
+         * @return the nested list that this NestedInteger holds, if it holds a
+         * nested list Return null if this NestedInteger holds a single
+         * integer
+         */
+        List<NestedInteger> getList();
     }
 
     public int depthSum(List<NestedInteger> input) { // ur implementation here}
-	int finalSum = 0;
-	for (NestedInteger nestedInteger : input) {
-	    finalSum += depthSumInternal(nestedInteger, 1);
-	}
-	return finalSum;
+        int finalSum = 0;
+        for (NestedInteger nestedInteger : input) {
+            finalSum += depthSumInternal(nestedInteger, 1);
+        }
+        return finalSum;
     }
 
     private int depthSumInternal(NestedInteger input, int level) {
-	int returnSum = 0;
-	if (input.isInteger())
-	    return level * input.getInteger();
-	for (NestedInteger childInput : input.getList()) {
-	    int childLevel = level + 1;
-	    returnSum += depthSumInternal(childInput, childLevel);
-	}
-	return returnSum;
+        int returnSum = 0;
+        if (input.isInteger())
+            return level * input.getInteger();
+        for (NestedInteger childInput : input.getList()) {
+            int childLevel = level + 1;
+            returnSum += depthSumInternal(childInput, childLevel);
+        }
+        return returnSum;
     }
 
     public static void main(String[] args) {
-	// TODO Auto-generated method stub
+        // TODO Auto-generated method stub
 
     }
 

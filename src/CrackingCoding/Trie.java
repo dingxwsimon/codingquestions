@@ -11,10 +11,10 @@ public class Trie {
      * these strings.
      */
     public Trie(ArrayList<String> list) {
-	root = new TrieNode();
-	for (String word : list) {
-	    root.addWord(word);
-	}
+        root = new TrieNode();
+        for (String word : list) {
+            root.addWord(word);
+        }
     }
 
     /*
@@ -22,10 +22,10 @@ public class Trie {
      * these strings.
      */
     public Trie(String[] list) {
-	root = new TrieNode();
-	for (String word : list) {
-	    root.addWord(word);
-	}
+        root = new TrieNode();
+        for (String word : list) {
+            root.addWord(word);
+        }
     }
 
     /*
@@ -33,18 +33,18 @@ public class Trie {
      * argument.
      */
     public boolean contains(String prefix, boolean exact) {
-	TrieNode lastNode = root;
-	int i = 0;
-	for (i = 0; i < prefix.length(); i++) {
-	    lastNode = lastNode.getChild(prefix.charAt(i));
-	    if (lastNode == null) {
-		return false;
-	    }
-	}
-	return !exact || lastNode.terminates();
+        TrieNode lastNode = root;
+        int i = 0;
+        for (i = 0; i < prefix.length(); i++) {
+            lastNode = lastNode.getChild(prefix.charAt(i));
+            if (lastNode == null) {
+                return false;
+            }
+        }
+        return !exact || lastNode.terminates();
     }
 
     public boolean contains(String prefix) {
-	return contains(prefix, false);
+        return contains(prefix, false);
     }
 }

@@ -4,8 +4,8 @@ import java.util.Arrays;
 
 public class OverlapDisk {
     public static void main(String[] args) {
-	int[] array1 = { 1, 5, 2, 1, 4, 0 };
-	System.out.println("result1 = " + number_of_disc_intersections(array1));
+        int[] array1 = {1, 5, 2, 1, 4, 0};
+        System.out.println("result1 = " + number_of_disc_intersections(array1));
     }
 
     /*
@@ -17,27 +17,27 @@ public class OverlapDisk {
      */
 
     public static int number_of_disc_intersections(int[] A) {
-	int N = A.length;
-	double[] begin = new double[N];
-	double[] end = new double[N];
-	for (int i = 0; i < N; i++) {
-	    begin[i] = i - A[i];
-	    end[i] = i + A[i];
-	}
-	Arrays.sort(begin);
+        int N = A.length;
+        double[] begin = new double[N];
+        double[] end = new double[N];
+        for (int i = 0; i < N; i++) {
+            begin[i] = i - A[i];
+            end[i] = i + A[i];
+        }
+        Arrays.sort(begin);
 
-	int sum = 0;
-	for (int i = 0; i < N; i++) {
-	    double e = end[i];
-	    int index = Arrays.binarySearch(begin, e + 0.5);
-	    int insert = -(index + 1);
-	    sum += (insert - i - 1);
-	    if (sum > 10000000) {
-		return (-1);
-	    }
-	}
+        int sum = 0;
+        for (int i = 0; i < N; i++) {
+            double e = end[i];
+            int index = Arrays.binarySearch(begin, e + 0.5);
+            int insert = -(index + 1);
+            sum += (insert - i - 1);
+            if (sum > 10000000) {
+                return (-1);
+            }
+        }
 
-	return sum;
+        return sum;
     }
 
 }

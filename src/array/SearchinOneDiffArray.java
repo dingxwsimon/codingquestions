@@ -8,25 +8,25 @@ public class SearchinOneDiffArray {
      */
 
     public int findElementInArray(int[] input, int expected) {
-	int current = 0;
-	int difference = Math.abs(input[current] - expected);
+        int current = 0;
+        int difference = Math.abs(input[current] - expected);
 
-	while (difference != 0 && current < input.length) {
-	    difference = Math.abs(input[current] - expected);
-	    if (difference == 0) {
-		return current;
-	    }
-	    current += difference;
-	}
+        while (difference != 0 && current < input.length) {
+            difference = Math.abs(input[current] - expected);
+            if (difference == 0) {
+                return current;
+            }
+            current += difference;
+        }
 
-	return -1;
+        return -1;
     }
 
     /**
      * @param args
      */
     public static void main(String[] args) {
-	// TODO Auto-generated method stub
+        // TODO Auto-generated method stub
 
     }
 
